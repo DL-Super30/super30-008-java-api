@@ -1,0 +1,37 @@
+package lead.com;
+
+
+
+
+import org.springframework.web.bind.annotation.*;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/lead")
+//@Tag(name = "User Management", description = "CRUD operations related to user management")
+public class LeadController {
+
+    private final LeadService leadService = new LeadService();
+    @PostMapping("/create")
+    public LeadEntity createLead(@RequestBody LeadEntity lead) {
+        return leadService.createLead(lead);
+    }
+
+    @GetMapping("/all")
+    public List<LeadEntity> getAllLeads() {
+        return leadService.getAllLeads();
+    }
+
+    @GetMapping("/{id}")
+    public LeadEntity getLeadById(@PathVariable int id) {
+        return leadService.getLeadById(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteLead(@PathVariable int id) {
+        leadService.deleteLead(id);
+    }
+}

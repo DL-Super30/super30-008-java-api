@@ -1,0 +1,56 @@
+package learners.com;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/learners")
+public class LearnerController {
+
+    @Autowired
+    private LearnerService learnerService;
+
+    // Create Learner
+    @PostMapping
+    public ResponseEntity<Learner> createLearner(@RequestBody Learner learner) {
+        Learner createdLearner = learnerService.createLearner(learner);
+        return new ResponseEntity<>(createdLearner, HttpStatus.CREATED);
+    }
+
+    // Read (Get all Learners with Pagination, Search, and Filter)
+    @GetMapping
+    public ResponseEntity<Page<Learner>> getAllLearners(
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) String courseName,
+            Pageable pageable) {
+        
+        Page<Learner> learners = learnerService.getAllLearners(keyword, batchId, pageable);
+        return new ResponseEntity<>(learners, HttpStatus.OK);
+    }
+
+    // Get Single Learner by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Learner> getLearnerById(@PathVariable Long id) {
+        Learner learner = learnerService.getLearnerById(id);
+        return new ResponseEntity<>(learner, HttpStatus.OK);
+    }
+
+    // Update Learner
+    @PutMapping("/{id}")
+    public ResponseEntity<Learner> updateLearner(
+            @PathVariable Long id, @RequestBody Learner learnerDetails) {
+        Learner updatedLearner = learnerService.updateLearner(id, learnerDetails);
+        return new ResponseEntity<>(updatedLearner, HttpStatus.OK);
+    }
+
+    // Delete Learner
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteLearner(@PathVariable Long id) {
+        learnerService.deleteLearner(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+}

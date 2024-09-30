@@ -1,0 +1,19 @@
+package com.example.crm;
+
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+
+import static com.fasterxml.jackson.databind.PropertyNamingStrategy.SNAKE_CASE;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class JacksonConfig {
+    @Bean
+    ObjectMapper objectMapper() {
+        PropertyNamingStrategy snakeCase = SNAKE_CASE;
+		return new ObjectMapper().setPropertyNamingStrategy(snakeCase);
+    }
+}

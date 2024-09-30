@@ -1,0 +1,13 @@
+package security;
+
+
+
+protected void configure(HttpSecurity http) throws Exception {
+    http
+        .csrf().disable() // Disable CSRF for simplicity (not recommended for production)
+        .authorizeRequests()
+            .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/login").permitAll() // Allow access to Swagger UI and login
+            .anyRequest().authenticated() // Secure all other endpoints
+            .and()
+        .httpBasic(); // Enable basic authentication
+}

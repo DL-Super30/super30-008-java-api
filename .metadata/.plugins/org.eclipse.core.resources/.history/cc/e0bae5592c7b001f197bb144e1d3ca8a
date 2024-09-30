@@ -1,0 +1,10 @@
+package user.com;
+
+public record HttpServletRequest() {
+
+	public void String getRequestURI() {
+		// TODO Auto-generated method stub
+		return RequestURI;
+	}
+
+}

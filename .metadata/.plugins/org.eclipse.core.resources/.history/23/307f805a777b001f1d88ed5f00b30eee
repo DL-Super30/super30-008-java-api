@@ -1,0 +1,49 @@
+package com.example.crm.security;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    private final UserDetailsService customUserDetailsService;
+
+    public SecurityConfig(UserDetailsService customUserDetailsService) {
+        this.customUserDetailsService = customUserDetailsService;
+    }
+
+    // Define the PasswordEncoder bean
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf().disable() // Disable CSRF for simplicity
+            .authorizeHttpRequests(authz -> authz
+                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/webjars/**", "/swagger-resources/**").permitAll() // Allow Swagger
+                .anyRequest().authenticated() // Any other request must be authenticated
+            )
+            .httpBasic(); // Basic authentication without form login
+
+        return http.build();
+    }
+
+    // Configure the AuthenticationManagerBuilder to use customUserDetailsService and password encoder
+    @Autowired
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+            .userDetailsService(customUserDetailsService)
+            .passwordEncoder(passwordEncoder());
+    }
+}

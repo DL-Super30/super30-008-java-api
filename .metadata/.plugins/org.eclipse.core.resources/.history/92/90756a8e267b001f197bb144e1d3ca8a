@@ -1,0 +1,33 @@
+package com.example.auth.controller;
+
+import com.example.auth.service.AuthService;
+import com.example.auth.dto.LoginRequest;
+import com.example.auth.dto.RegisterRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/auth")
+public class AuthController {
+
+    @Autowired
+    private AuthService authService;
+
+    // Register endpoint
+    @PostMapping("/register")
+    public String register(@RequestBody RegisterRequest registerRequest) {
+        authService.registerUser(registerRequest.getUsername(), registerRequest.getPassword());
+        return "User registered successfully!";
+    }
+
+    // Login endpoint
+    @PostMapping("/login")
+    public String login(@RequestBody LoginRequest loginRequest) {
+        boolean isAuthenticated = authService.login(loginRequest.getUsername(), loginRequest.getPassword());
+        if (isAuthenticated) {
+            return "Login successful";
+        } else {
+            return "Invalid username or password";
+        }
+    }
+}

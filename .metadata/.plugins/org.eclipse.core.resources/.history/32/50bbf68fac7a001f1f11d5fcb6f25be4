@@ -1,0 +1,142 @@
+package learners.com;
+
+
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "learners")
+public class Learner {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String firstName;
+    private String lastName;
+    private String idProof;
+    private String phone;
+    
+    private String dateOfBirth;
+    private String email;
+    private String registeredDate;
+    private String location;
+    private String batchIds;
+    private String alternatePhone;
+    private String description;
+    private Double exchangeRate;
+    private String source;
+    private Boolean attendedDemo;
+    private String learnerOwner;
+    private String learnerStage;
+
+	private Object courseName;
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public String getIdProof() {
+		return idProof;
+	}
+	public void setIdProof(String idProof) {
+		this.idProof = idProof;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getRegisteredDate() {
+		return registeredDate;
+	}
+	public void setRegisteredDate(String registeredDate) {
+		this.registeredDate = registeredDate;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	public String getBatchIds() {
+		return batchIds;
+	}
+	public void setBatchIds(String batchIds) {
+		this.batchIds = batchIds;
+	}
+	public String getAlternatePhone() {
+		return alternatePhone;
+	}
+	public void setAlternatePhone(String alternatePhone) {
+		this.alternatePhone = alternatePhone;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public Double getExchangeRate() {
+		return exchangeRate;
+	}
+	public void setExchangeRate(Double exchangeRate) {
+		this.exchangeRate = exchangeRate;
+	}
+	public String getSource() {
+		return source;
+	}
+	public void setSource(String source) {
+		this.source = source;
+	}
+	public Boolean getAttendedDemo() {
+		return attendedDemo;
+	}
+	public void setAttendedDemo(Boolean attendedDemo) {
+		this.attendedDemo = attendedDemo;
+	}
+	public String getLearnerOwner() {
+		return learnerOwner;
+	}
+	public void setLearnerOwner(String learnerOwner) {
+		this.learnerOwner = learnerOwner;
+	}
+	public String getLearnerStage() {
+		return learnerStage;
+	}
+	public void setLearnerStage(String learnerStage) {
+		this.learnerStage = learnerStage;
+	}
+	public Object getCourseName() {
+		return courseName;
+	}
+	public void setCourseName(Object courseName) {
+		this.courseName = courseName;
+	}
+	
+
+    // Getters and setters
+}

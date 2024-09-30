@@ -1,0 +1,28 @@
+package opportunity.com;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@Service
+public class OpportunityService {
+
+    @Autowired
+    private OpportunityRepository opportunityRepository;
+	private OpportunityService opportunityService;
+
+    public Page<Opportunity> getOpportunities(Pageable pageable) {
+        // The repository handles pagination, no need for manual casting.
+        return opportunityRepository.findAll(pageable);
+    }
+
+@DeleteMapping("/{id}")
+public ResponseEntity<Void> deleteOpportunity(@PathVariable Long id) {
+    opportunityService.deleteOpportunity(id);
+    return ResponseEntity.noContent().build();
+}
+}

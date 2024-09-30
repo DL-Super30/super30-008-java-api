@@ -1,0 +1,75 @@
+package courses.com;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class CourseService {
+
+    @Autowired
+    private CourseRepository courseRepository;
+
+   // private final CourseRepository courseRepository; // Assuming EnrollmentRepository exists
+
+    // Create a new course
+    public Course createCourse(Course course) {
+        return courseRepository.save(course);
+    }
+
+    // Get detailed information about a course, including related data (enrollments, notes, etc.)
+    public Course getCourseDetail(Long id) {
+        Optional<Course> courseOpt = courseRepository.findById(id);
+        if (!courseOpt.isPresent()) {
+            return null; // Or throw a custom exception
+        }
+
+        Course course = courseOpt.get();
+
+        // Retrieve Enrollments (assuming method exists in EnrollmentRepository)
+        // List<Enrollment> enrollments = enrollmentRepository.findByCourseId(id);
+
+        // Retrieve Notes (assuming NoteRepository exists)
+        // List<Note> notes = noteRepository.findByCourseId(id);
+
+        // Set additional data to the course (enrollments, notes, etc.)
+        // course.setEnrollments(enrollments);
+        // course.setNotes(notes);
+
+        return course;
+    }
+
+    // Delete a course by ID
+    public boolean deleteCourse(Long id) {
+        if (courseRepository.existsById(id)) {
+            courseRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Course not found with ID: " + id);
+        }
+		return false;
+    }
+
+    // Update a course
+    public Course updateCourse(Long id, Course updatedCourse) {
+        return courseRepository.findById(id)
+                .map(course -> {
+                    course.setCourseName(updatedCourse.getCourseName());
+                    course.setDescription(updatedCourse.getDescription());
+                    // Set other fields from updatedCourse
+                    return courseRepository.save(course);
+                })
+                .orElseThrow(() -> new RuntimeException("Course not found with ID: " + id));
+    }
+
+    // Get a paginated list of all courses
+    public List<Course> getAllCourses(Pageable pageable) {
+        Page<Course> coursePage = courseRepository.findAll(pageable);
+        return coursePage.getContent();
+    }
+
+    // Other methods as needed...
+}

@@ -1,0 +1,142 @@
+1727011369566	Encapsulate field 'name, ...'
+1727011378031	Encapsulate field 'cc, ...'
+1727011384986	Encapsulate field 'phone, ...'
+1727011391599	Encapsulate field 'email, ...'
+1727011399164	Encapsulate field 'feeQuoted, ...'
+1727011405879	Encapsulate field 'opportunityStatus, ...'
+1727011412851	Encapsulate field 'opportunityStage, ...'
+1727011419025	Encapsulate field 'demoAttendedStage, ...'
+1727011425020	Encapsulate field 'visitedStage, ...'
+1727011432163	Encapsulate field 'lostOpportunityReason, ...'
+1727011438303	Encapsulate field 'nextFollowUp, ...'
+1727011444963	Encapsulate field 'leadStatus, ...'
+1727011451492	Encapsulate field 'leadSource, ...'
+1727011457604	Encapsulate field 'course, ...'
+1727029822248	Encapsulate field 'firstName, ...'
+1727029867832	Encapsulate field 'lastName, ...'
+1727029874623	Encapsulate field 'idProof, ...'
+1727029882265	Encapsulate field 'phone, ...'
+1727029888882	Encapsulate field 'dateOfBirth, ...'
+1727029895504	Encapsulate field 'email, ...'
+1727029901746	Encapsulate field 'registeredDate, ...'
+1727029908609	Encapsulate field 'location, ...'
+1727029915019	Encapsulate field 'batchId, ...'
+1727029921429	Encapsulate field 'alternatePhone, ...'
+1727029932790	Encapsulate field 'exchangeRate, ...'
+1727029939562	Encapsulate field 'source, ...'
+1727029946075	Encapsulate field 'attendedDemo, ...'
+1727029953564	Encapsulate field 'learnerOwner, ...'
+1727029960454	Encapsulate field 'learnerStage, ...'
+1727032364576	Encapsulate field 'description, ...'
+1727066669295	Encapsulate field 'courseName, ...'
+1727066676240	Encapsulate field 'courseFee, ...'
+1727066686257	Encapsulate field 'description, ...'
+1727066694032	Encapsulate field 'courseImage, ...'
+1727067410815	Encapsulate field 'firstName, ...'
+1727067418265	Encapsulate field 'lastName, ...'
+1727067425109	Encapsulate field 'idProof, ...'
+1727067432387	Encapsulate field 'phone, ...'
+1727067439390	Encapsulate field 'dateOfBirth, ...'
+1727067446928	Encapsulate field 'email, ...'
+1727067453820	Encapsulate field 'registeredDate, ...'
+1727067460831	Encapsulate field 'location, ...'
+1727067476240	Encapsulate field 'batchIds, ...'
+1727067483940	Encapsulate field 'alternatePhone, ...'
+1727067490707	Encapsulate field 'description, ...'
+1727067498797	Encapsulate field 'exchangeRate, ...'
+1727067506379	Encapsulate field 'source, ...'
+1727067516342	Encapsulate field 'attendedDemo, ...'
+1727067522853	Encapsulate field 'learnerOwner, ...'
+1727067529018	Encapsulate field 'learnerStage, ...'
+1727071228236	Encapsulate field 'enrollmentRepository, ...'
+1727071618450	Encapsulate field 'enrollmentRepository, ...'
+1727073296231	Delete element
+1727073308740	Delete element
+1727078576048	Delete element
+1727080291491	Encapsulate field 'discription, ...'
+1727082971078	Copy compilation unit
+1727082978499	Delete element
+1727083216304	Delete element
+1727084072753	Delete element
+1727085718766	Delete element
+1727085726228	Delete element
+1727089690282	Delete element
+1727089726628	Delete element
+1727089869169	Delete element
+1727095603619	Delete element
+1727102715999	Encapsulate field 'stack, ...'
+1727102750259	Encapsulate field 'course, ...'
+1727102756991	Encapsulate field 'classMode, ...'
+1727102763593	Encapsulate field 'nextFollowUp, ...'
+1727102769945	Encapsulate field 'description, ...'
+1727116020066	Encapsulate field 'courseName, ...'
+1727124874666	Delete element
+1727125877185	Encapsulate field 'name, ...'
+1727125885411	Encapsulate field 'cc, ...'
+1727125892410	Encapsulate field 'phone, ...'
+1727125899238	Encapsulate field 'email, ...'
+1727125905862	Encapsulate field 'feeQuoted, ...'
+1727125912703	Encapsulate field 'leadStatus, ...'
+1727125919139	Encapsulate field 'leadSource, ...'
+1727125925283	Encapsulate field 'stack, ...'
+1727125935669	Encapsulate field 'course, ...'
+1727125944031	Encapsulate field 'classMode, ...'
+1727125950382	Encapsulate field 'description, ...'
+1727130955987	Encapsulate field 'name, ...'
+1727130976583	Encapsulate field 'phone, ...'
+1727130984096	Encapsulate field 'cc, ...'
+1727130994166	Encapsulate field 'email, ...'
+1727131005331	Encapsulate field 'feeQuoted, ...'
+1727131011665	Encapsulate field 'leadStatus, ...'
+1727131017595	Encapsulate field 'leadSource, ...'
+1727131025321	Encapsulate field 'stack, ...'
+1727131035617	Encapsulate field 'course, ...'
+1727131041723	Encapsulate field 'classMode, ...'
+1727131048707	Encapsulate field 'description, ...'
+1727133819378	Delete element
+1727174216527	Encapsulate field 'name, ...'
+1727174224825	Encapsulate field 'cc, ...'
+1727174232689	Encapsulate field 'phone, ...'
+1727174241326	Encapsulate field 'email, ...'
+1727174247690	Encapsulate field 'feeQuoted, ...'
+1727174265267	Encapsulate field 'leadStatus, ...'
+1727174284919	Encapsulate field 'leadSource, ...'
+1727174293645	Encapsulate field 'stack, ...'
+1727174300732	Encapsulate field 'course, ...'
+1727174308623	Encapsulate field 'classMode, ...'
+1727174315713	Encapsulate field 'description, ...'
+1727200052575	Delete element
+1727200068493	Delete element
+1727210508422	Encapsulate field 'idProof, ...'
+1727210516214	Encapsulate field 'phone, ...'
+1727210525799	Encapsulate field 'dateOfBirth, ...'
+1727210532518	Encapsulate field 'email, ...'
+1727210543603	Encapsulate field 'registeredDate, ...'
+1727210551163	Encapsulate field 'location, ...'
+1727210558362	Encapsulate field 'batchIds, ...'
+1727210565948	Encapsulate field 'alternatePhone, ...'
+1727210572878	Encapsulate field 'description, ...'
+1727210581613	Encapsulate field 'exchangeRate, ...'
+1727210588842	Encapsulate field 'source, ...'
+1727210599902	Encapsulate field 'attendedDemo, ...'
+1727210608051	Encapsulate field 'learnerOwner, ...'
+1727210623993	Encapsulate field 'learnerStage, ...'
+1727219342930	Encapsulate field 'courseBroucher, ...'
+1727228554871	Delete element
+1727229519493	Delete element
+1727229603040	Delete element
+1727258695793	Rename type 'UserController'
+1727258755878	Rename compilation unit 'UserService.java'
+1727259198002	Delete element
+1727260440869	Encapsulate field 'gmail, ...'
+1727260551731	Delete element
+1727261651877	Delete element
+1727261981046	Delete element
+1727262206470	Delete element
+1727262579188	Delete element
+1727275816359	Delete element
+1727275824406	Delete element
+1727291637078	Delete element
+1727295744111	Delete element
+1727295751833	Delete element
+1727353287307	Encapsulate field 'batchTiming, ...'

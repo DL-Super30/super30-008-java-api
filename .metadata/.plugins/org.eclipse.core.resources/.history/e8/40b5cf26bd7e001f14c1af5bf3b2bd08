@@ -1,0 +1,43 @@
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import java.util.Optional;
+
+@Service
+public class LearnerService {
+
+    @Autowired
+    private LearnerRepository learnerRepository; 
+
+    public Learner saveLearner(Learner learner) {
+        return learnerRepository.save(learner);
+    }
+
+    public Page<Learner> findAll(Pageable pageable) {
+        return learnerRepository.findAll(pageable);
+    }
+
+    public Page<Learner> searchLearners(String firstName, Pageable pageable) {
+        return learnerRepository.findByfirstnameContainingIgnoreCase(firstName, pageable);
+    }
+
+    public Optional<Learner> getLearnerById(Long id) {
+        return Optional.ofNullable(learnerRepository.findById(id)
+                .orElseThrow());
+    }
+
+    public Learner updateLearner(Long id, Learner learnerDetails) {
+        Optional<Learner> existingLearner = getLearnerById(id);
+
+        existingLearner.setFirstName(learnerDetails.getfirstname());
+        existingLearner.setLastName(learnerDetails.getlastname());
+        // Update other fields...
+
+        return learnerRepository.save(existingLearner);
+    }
+
+    public void deleteLearner(Long id) {
+        learnerRepository.deleteById(id);
+    }
+}

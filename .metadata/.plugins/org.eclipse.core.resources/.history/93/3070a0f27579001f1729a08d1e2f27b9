@@ -1,0 +1,15 @@
+package courses.com;
+
+public record CourseDetail() {
+
+	public void setCourse(Course course) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setCourse(Course course) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

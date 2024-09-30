@@ -1,0 +1,58 @@
+package user.com;
+
+import org.apache.catalina.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class UserService {
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    @Autowired
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    // Create a new user with encrypted password
+    public AppUser createUser(AppUser user) {
+        // Encrypt the password before saving it
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.saveAll(user);
+    }
+
+    // Fetch all users
+    public List<org.springframework.boot.autoconfigure.security.SecurityProperties.User> findAll() {
+        return userRepository.findAll();
+    }
+
+    // Fetch user by ID
+    public Optional<org.springframework.boot.autoconfigure.security.SecurityProperties.User> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    // Update an existing user
+    public Optional<Object> updateUser(Long id, User userDetails) {
+        return userRepository.findById(id).map(user -> {
+            user.setName(userDetails.getUsername());
+            ((AppUser) user).setEmail(((AppUser) userDetails).getEmail());
+
+            // Encrypt new password if provided
+            if (userDetails.getPassword() != null && !userDetails.getPassword().isEmpty()) {
+                user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
+            }
+            return userRepository.save(user);
+        });
+    }
+
+    // Delete a user by ID
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+}

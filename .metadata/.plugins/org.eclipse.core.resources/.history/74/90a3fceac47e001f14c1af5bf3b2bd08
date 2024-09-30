@@ -1,0 +1,26 @@
+package com.example.crm;
+
+
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class JacksonConfig {
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        
+        // Configure to use camelCase naming strategy
+        objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CAMEL_CASE);
+        
+        // Other configurations if needed
+        objectMapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+        
+        return objectMapper;
+    }
+}

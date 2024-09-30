@@ -1,0 +1,73 @@
+package user.com;
+
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class UserService {
+
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
+
+    // Constructor for dependency injection
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    // Save a user
+    public void saveUser(SecurityProperties.User user) {
+        userRepository.save(user);
+    }
+
+    // Fetch all users
+    public List<SecurityProperties.User> findAll() {
+        return (List<SecurityProperties.User>) userRepository.findAll();
+    }
+
+    // Fetch user by ID
+    public Optional<SecurityProperties.User> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    // Create a new user and encrypt password
+    public SecurityProperties.User createUser(SecurityProperties.User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return userRepository.save(user); // Corrected: save directly from the repository instance
+    }
+
+    // Update user details
+    public void updateUserDetails(Object userDetails) {
+        if (userDetails instanceof SecurityProperties.User) {
+            SecurityProperties.User userDetailsTyped = (SecurityProperties.User) userDetails;
+            SecurityProperties.User userToUpdate = new SecurityProperties.User();
+            userToUpdate.setEmail(userDetails.getEmail());
+            // Additional fields can be set here if needed
+            userRepository.save(userToUpdate); // Save the updated user
+        } else {
+            throw new IllegalArgumentException("Invalid user details provided.");
+        }
+    }
+
+    // Update an existing user
+    public Optional<SecurityProperties.User> updateUser(Long id, SecurityProperties.User userDetails) {
+        return userRepository.findById(id).map(user -> {
+            user.setName(userDetails.getName());
+            user.setEmail(userDetails.getEmail());
+
+            // Encrypt new password if provided
+            if (userDetails.getPassword() != null && !userDetails.getPassword().isEmpty()) {
+                user.setPassword(passwordEncoder.encode(userDetails.getPassword()));
+            }
+            return userRepository.save(user);
+        });
+    }
+
+    // Delete a user by ID
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
+}

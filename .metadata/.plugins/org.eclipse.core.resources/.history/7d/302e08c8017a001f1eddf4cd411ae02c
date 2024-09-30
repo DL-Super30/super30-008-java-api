@@ -1,0 +1,74 @@
+package lead.com;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/lead")
+public class LeadController {
+
+    @Autowired
+    private LeadService leadService;
+    @Operation(summary = "Create a new lead")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "lead created successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid request")
+    })
+
+    // Create a new lead
+    @PostMapping("/create")
+    public LeadEntity createLead(@RequestBody LeadEntity lead) {
+        return leadService.createLead(lead);
+    }
+
+    // Get all leads
+    @Operation(summary = "Fetch list of leads", description = "Fetch all leads with pagination support.")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Fetched successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid pagination parameters")
+    })
+    @GetMapping("/all")
+    public List<LeadEntity> getAllLeads() {
+        return leadService.getAllLeads();
+    }
+
+    // Get a lead by ID
+    @Operation(summary = "Get an lead by ID")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Fetched successfully"),
+        @ApiResponse(responseCode = "404", description = "lead not found")
+    })
+    @GetMapping("/{id}")
+    public Optional<LeadEntity> getLeadById(@PathVariable int id) {
+        return Optional.empty();
+    }
+
+    // Update a lead by ID
+    @Operation(summary = "Update an existing lead by id")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Updated successfully"),
+        @ApiResponse(responseCode = "404", description = "lead not found")
+    })
+    @PutMapping("/{id}")
+    public LeadEntity updateLead(@PathVariable int id, @RequestBody LeadEntity updatedLead) {
+        return leadService.updateLead(id, updatedLead);
+    }
+
+    // Delete a lead by ID
+    @Operation(summary = "delete an existing lead by id")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Updated successfully"),
+        @ApiResponse(responseCode = "404", description = "lead not found")
+    })
+    @DeleteMapping("/{id}")
+    public void deleteLead(@PathVariable int id) {
+        leadService.deleteLead(id);
+    }
+}

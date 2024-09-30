@@ -1,0 +1,22 @@
+package security.com;
+
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .csrf().disable() // Disable CSRF for simplicity; consider your security needs.
+            .authorizeRequests()
+                .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll() // Allow access to Swagger UI and API docs
+                .anyRequest().authenticated() // Secure other endpoints
+            .and()
+            .formLogin().disable(); // Disable default form login
+    }
+}

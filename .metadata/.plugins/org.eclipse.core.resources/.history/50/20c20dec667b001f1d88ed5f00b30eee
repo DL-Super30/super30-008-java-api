@@ -1,0 +1,15 @@
+package user.com;
+
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UserRepository extends JpaRepository<User, Long> {
+    // You can define custom query methods if needed, for example:
+    User findByUsername(String username);
+
+	AppUser save(AppUser user);
+
+	AppUser saveAll(AppUser user);
+
+	
+}

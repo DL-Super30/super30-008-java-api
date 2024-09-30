@@ -1,0 +1,41 @@
+package com.example.auth.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.util.matcher.RequestMatcher;
+
+import javax.servlet.http.HttpServletRequest;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests()
+            // Use a custom RequestMatcher for Swagger-related paths
+            .requestMatchers(new SwaggerRequestMatcher()).permitAll()
+            // Other requests should be authenticated
+            .anyRequest().authenticated()
+            .and()
+            .csrf().disable();  // Disable CSRF for simplicity (optional)
+    }
+
+    // Custom RequestMatcher for Swagger endpoints
+    private static class SwaggerRequestMatcher implements RequestMatcher {
+        @Override
+        public boolean matches(HttpServletRequest request) {
+            String path = request.getRequestURI();
+            return path.startsWith("/v2/api-docs") ||
+                   path.startsWith("/v3/api-docs") ||
+                   path.startsWith("/swagger-resources") ||
+                   path.startsWith("/swagger-ui") ||
+                   path.startsWith("/swagger-ui.html") ||
+                   path.startsWith("/webjars") ||
+                   path.equals("/swagger-ui/index.html");
+        }
+    }
+}

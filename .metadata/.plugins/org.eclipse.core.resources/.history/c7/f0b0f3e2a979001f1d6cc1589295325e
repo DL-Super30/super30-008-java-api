@@ -1,0 +1,7 @@
+package opportunity.com;
+
+public @interface ApiResponse {
+
+	String responseCode();
+
+}

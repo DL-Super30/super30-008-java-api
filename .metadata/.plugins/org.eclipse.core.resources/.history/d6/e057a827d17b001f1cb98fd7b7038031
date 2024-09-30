@@ -1,0 +1,53 @@
+package learners.com;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class LearnerService {
+
+    @Autowired
+    private LearnerRepository learnerRepository; // Assuming you have a repository for Learner
+
+    // Method to save a new learner
+    public Learner saveLearner(Learner learner) {
+        return learnerRepository.save(learner);
+    }
+
+    // Method to fetch all learners with pagination
+    public Page<Learner> findAll(Pageable pageable) {
+        return learnerRepository.findAll(pageable);
+    }
+
+    // Method to search learners by name
+    
+    public Page<Learner> searchLearners(String firstName, Pageable pageable) {
+        return learnerRepository.findByFirstNameContainingIgnoreCase(firstName, pageable);
+    }
+
+    // Method to get a learner by ID
+    public Optional<Learner> getLearnerById(Long id) {
+        return learnerRepository.findById(id);
+    }
+
+    // Method to update an existing learner
+    public Learner updateLearner(Long id, Learner learnerDetails) {
+     Learner existingLearner = learnerRepository.findById(id)
+                .orElseThrow();
+
+        existingLearner.setFirstName(learnerDetails.getFirstName());
+        existingLearner.setLastName(learnerDetails.getLastName());
+        // Set other properties as needed...
+
+        return learnerRepository.save(existingLearner);
+    }
+
+    // Method to delete a learner
+    public void deleteLearner(Long id) {
+        learnerRepository.deleteById(id);
+    }
+}

@@ -1,0 +1,101 @@
+package learners.com;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.validation.Valid;
+
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/learners")
+public class LearnerController {
+
+    @Autowired
+    private LearnerService learnerService;
+
+    @Operation(summary = "Create a new learner")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Learner created successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid request")
+    })
+    @PostMapping
+    public ResponseEntity<Learner> createLearner(@Valid @RequestBody Learner learner) {
+        Learner createdLearner = learnerService.saveLearner(learner);
+        return ResponseEntity.status(201).body(createdLearner);
+    }
+
+    @Operation(summary = "Fetch all learners")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Fetched successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid request")
+    })
+    @GetMapping
+    public Page<Learner> getAllLearners(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id,asc") String[] sort) {
+
+        // Create Sort object based on input
+        Sort sortOrder = Sort.by(Sort.Order.asc(sort[0]));  // For ascending order
+        if (sort.length > 1 && sort[1].equalsIgnoreCase("desc")) {
+            sortOrder = Sort.by(Sort.Order.desc(sort[0]));  // For descending order
+        }
+
+        Pageable pageable = PageRequest.of(page, size, sortOrder);
+        return learnerService.findAll(pageable);
+    }
+
+    @Operation(summary = "Search learners by name")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Fetched learners by name successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid request")
+    })
+    @GetMapping("/search")
+    public ResponseEntity<Page<Learner>> getLearnersByName(@RequestParam String name, Pageable pageable) {
+        Page<Learner> learners = learnerService.searchLearners(name, pageable);
+        return ResponseEntity.ok(learners);
+    }
+
+    @Operation(summary = "Get learner by ID")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Fetched learner by ID successfully"),
+        @ApiResponse(responseCode = "404", description = "Learner not found")
+    })
+    @GetMapping("/{id}")
+    public ResponseEntity<Learner> getLearnerById(@PathVariable Long id) {
+        Optional<Learner> learner = learnerService.getLearnerById(id);
+        return learner.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @Operation(summary = "Update learner")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Updated successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid request"),
+        @ApiResponse(responseCode = "404", description = "Learner not found")
+    })
+    @PutMapping("/{id}")
+    public ResponseEntity<Learner> updateLearner(@PathVariable Long id, @Valid @RequestBody Learner learnerDetails) {
+        Learner updatedLearner = learnerService.updateLearner(id, learnerDetails);
+        return ResponseEntity.ok(updatedLearner);
+    }
+
+    @Operation(summary = "Delete learner")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "204", description = "Deleted successfully"),
+        @ApiResponse(responseCode = "404", description = "Learner not found")
+    })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteLearner(@PathVariable Long id) {
+        learnerService.deleteLearner(id);
+        return ResponseEntity.noContent().build();
+    }
+}

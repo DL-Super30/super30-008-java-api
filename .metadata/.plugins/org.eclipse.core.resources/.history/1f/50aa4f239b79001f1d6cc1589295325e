@@ -1,0 +1,57 @@
+spring.application.name=crmWebApp
+# PostgreSQL Configuration
+spring.datasource.url=jdbc:postgresql://localhost:5432/skillcapital
+spring.datasource.username=myuser
+spring.datasource.password=root
+#spring.jpa.hibernate.ddl-auto=update
+#spring.jpa.show-sql=true
+#spring.jpa.open-in-view=false
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+#springdoc.packages-to-scan=com.example.crm
+
+
+springdoc.packages-to-scan=user.com,lead.com,opportunity.com,learners.com,courses.com
+
+spring.main.allow-bean-definition-overriding=true
+
+
+spring.jpa.hibernate.ddl-auto=none
+
+
+
+spring.jpa.open-in-view=true
+
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+
+
+# Spring Security (if using)
+spring.security.user.name=user
+spring.security.user.password=password
+
+# Swagger UI properties
+springdoc.api-docs.enabled=true
+springdoc.swagger-ui.enabled=true
+
+# Base path for API documentation
+#springdoc.api-docs.path=//v3//api-docs
+#springdoc.swagger-ui.path=//swagger-ui.html
+
+# Customizing Swagger UI
+springdoc.swagger-ui.urls[0].name=User Management API
+springdoc.swagger-ui.urls[0].url=/v3/api-docs
+springdoc.swagger-ui.operations-sorter=method
+
+# PostgreSQL Database Configuration
+
+springdoc.api-docs.path=/v3/api-docs
+springdoc.swagger-ui.path=/swagger-ui.html
+
+
+
+
+
+# Hibernate Configuration
+#spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect  # Dialect for PostgreSQL
+                         # 'update' creates or updates tables automatically
+

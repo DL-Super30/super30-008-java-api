@@ -1,0 +1,15 @@
+package learners.com;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+public interface LearnerRepository extends JpaRepository<Learner, Long>, JpaSpecificationExecutor<Learner> {
+
+    // Custom query to search learners by keyword and course name
+    @Query("SELECT l FROM Learner l WHERE (:keyword IS NULL OR l.name LIKE %:keyword%) AND (:courseName IS NULL OR l.courseName = :courseName)")
+    Page<Learner> findByKeywordAndCourseName(@Param("keyword") String keyword, @Param("courseName") String courseName, Pageable pageable);
+}

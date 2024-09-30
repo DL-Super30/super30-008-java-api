@@ -1,0 +1,57 @@
+package learners.com;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class LearnerService {
+
+    public static Object updateLearner;
+	@Autowired
+    private LearnerRepository learnerRepository; 
+
+    // Method to save a new learner
+    public Learner saveLearner(Learner learner) {
+        return learnerRepository.save(learner);
+    }
+
+    // Method to fetch all learners with pagination
+    public Page<Learner> findAll(Pageable pageable) {
+        return learnerRepository.findAll(pageable);
+    }
+
+    // Method to search learners by first name
+    public Page<Learner> searchLearners(String firstname, Pageable pageable) {
+        return learnerRepository.findByfirstnameContainingIgnoreCase(firstname, pageable);
+    }
+
+    // Method to get a learner by ID
+    public Optional<Learner> getLearnerById(Long id) {
+        return learnerRepository.findById(id);
+    }
+
+    // Method to update an existing learner
+    public Learner updateLearner(Long id, Learner learnerDetails) {
+        Learner existingLearner = learnerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Learner not found with id: " + id));
+
+        existingLearner.setFirstname(learnerDetails.getFirstname());
+        existingLearner.setLastname(learnerDetails.getLastname());
+        existingLearner.setIdproof(learnerDetails.getIdproof());
+        existingLearner.setPhone(learnerDetails.getPhone());
+        existingLearner.setDateofbirth(learnerDetails.getDateofbirth());
+        existingLearner.setEmail(learnerDetails.getEmail());
+        existingLearner.setRegistereddate(learnerDetails.getRegistereddate());
+        existingLearner.setLocation(learnerDetails.getLocation());
+		return existingLearner;
+    }
+
+	public void deleteLearner(Long learnerId) {
+		// TODO Auto-generated method stub
+		
+	}
+}

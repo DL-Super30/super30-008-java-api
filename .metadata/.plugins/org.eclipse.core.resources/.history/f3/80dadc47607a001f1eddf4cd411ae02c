@@ -1,0 +1,82 @@
+package com.example.crm;
+
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
+
+import org.springdoc.core.models.GroupedOpenApi;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+@Configuration
+@OpenAPIDefinition(info = @Info(title = "User Management", version = "2.0", description = "API documentation for CRM application"))
+public class SwaggerConfig {
+
+    @Bean
+    GroupedOpenApi userApi() {
+        return GroupedOpenApi.builder()
+                .group("user")
+                .packagesToScan("user.com.controller") // Adjusted to reflect the project structure
+                .build();
+    }
+
+    @Bean
+    GroupedOpenApi leadApi() {
+        return GroupedOpenApi.builder()
+                .group("lead")
+                .packagesToScan("lead.com.controller") // Adjusted to reflect the project structure
+                .build();
+    }
+
+    @Bean
+    GroupedOpenApi opportunityApi() {
+        return GroupedOpenApi.builder()
+                .group("opportunity")
+                .packagesToScan("opportunity.com.controller") // Adjust this package if you have opportunity classes
+                .build();
+    }
+    @Bean
+    GroupedOpenApi learnerApi() {
+        return GroupedOpenApi.builder()
+                .group("learners")
+                .packagesToScan("learners.com.controller") // Adjust this package if you have opportunity classes
+                .build();
+    }
+    @Bean
+    GroupedOpenApi coursesApi() {
+        return GroupedOpenApi.builder()
+                .group("courses")
+                .packagesToScan("courses.com.controller") // Adjust this package if you have opportunity classes
+                .build();
+    }
+  
+
+
+// Custom ObjectMapper configuration for Swagger (Optional)
+
+@Bean
+public ObjectMapper objectMapper() {
+    ObjectMapper mapper = new ObjectMapper();
+    mapper.registerModule(new JavaTimeModule());
+    mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
+    return mapper;
+}
+}
+
+//@Bean
+//GroupedOpenApi securityApi() {
+   // return GroupedOpenApi.builder()
+         //   .group("security")
+           // .packagesToScan("security.com") // Adjust this package if you have opportunity classes
+           // .build();
+
+

@@ -1,0 +1,138 @@
+package opportunity.com;
+
+
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "opportunities")
+public class Opportunity{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+    private String cc;
+    private String phone;
+    private String email;
+    private String feeQuoted;
+    private String opportunityStatus;
+    private String opportunityStage;
+    private String demoAttendedStage;
+    private String visitedStage;
+    private String lostOpportunityReason;
+    private String nextFollowUp;
+    private String leadStatus;
+    private String leadSource;
+    private String course;
+    private String description;
+    
+
+	private Object Description;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getCc() {
+		return cc;
+	}
+	public void setCc(String cc) {
+		this.cc = cc;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getFeeQuoted() {
+		return feeQuoted;
+	}
+	public void setFeeQuoted(String feeQuoted) {
+		this.feeQuoted = feeQuoted;
+	}
+	public String getOpportunityStatus() {
+		return opportunityStatus;
+	}
+	public void setOpportunityStatus(String opportunityStatus) {
+		this.opportunityStatus = opportunityStatus;
+	}
+	public String getOpportunityStage() {
+		return opportunityStage;
+	}
+	public void setOpportunityStage(String opportunityStage) {
+		this.opportunityStage = opportunityStage;
+	}
+	public String getDemoAttendedStage() {
+		return demoAttendedStage;
+	}
+	public void setDemoAttendedStage(String demoAttendedStage) {
+		this.demoAttendedStage = demoAttendedStage;
+	}
+	public String getVisitedStage() {
+		return visitedStage;
+	}
+	public void setVisitedStage(String visitedStage) {
+		this.visitedStage = visitedStage;
+	}
+	public String getLostOpportunityReason() {
+		return lostOpportunityReason;
+	}
+	public void setLostOpportunityReason(String lostOpportunityReason) {
+		this.lostOpportunityReason = lostOpportunityReason;
+	}
+	public String getNextFollowUp() {
+		return nextFollowUp;
+	}
+	public void setNextFollowUp(String nextFollowUp) {
+		this.nextFollowUp = nextFollowUp;
+	}
+	public String getLeadStatus() {
+		return leadStatus;
+	}
+	public void setLeadStatus(String leadStatus) {
+		this.leadStatus = leadStatus;
+	}
+	public String getLeadSource() {
+		return leadSource;
+	}
+	public void setLeadSource(String leadSource) {
+		this.leadSource = leadSource;
+	}
+	public String getCourse() {
+		return course;
+	}
+	public void setCourse(String course) {
+		this.course = course;
+	}
+	public Object getDescription() {
+		// TODO Auto-generated method stub
+		return Description;
+	}
+	public void setDescription() {
+		// TODO Auto-generated method stub
+		this.description=getDiscription();
+	}
+	public String getDiscription() {
+		return description;
+	}
+	public void setDiscription(String discription, String description) {
+		this.description = description;
+	}
+
+    // Getters and setters
+    // Constructor
+}

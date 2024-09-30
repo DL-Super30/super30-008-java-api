@@ -1,0 +1,68 @@
+1726611264456	Rename type 'DemoApplication'
+1726611282011	Rename type 'DemoApplicationTests'
+1726626954006	Extract local variable 'disable'
+1726626997522	Extract local variable 'permitAll'
+1726627068950	Extract method 'extracted'
+1726627078034	Extract method 'extracted'
+1726627104580	Extract local variable 'permitAll'
+1726627885046	Extract local variable 'disable'
+1726628003038	Delete element
+1726749256071	Encapsulate field 'userDetailsService, ...'
+1726750426260	Delete element
+1726750442815	Delete element
+1726825072838	Copy compilation unit
+1726825089520	Delete element
+1726825231653	Delete element
+1726841533295	Delete element
+1726849582515	Copy file
+1726849616715	Delete element
+1726849652783	Copy file
+1726849666180	Delete element
+1726898012301	Rename package 'com.example.crm'
+1726898439498	Rename package 'com.user'
+1726901719048	Copy package
+1726901744731	Copy package
+1726904762101	Convert local variable 'usersRepository' to field
+1726905856900	Copy compilation unit
+1726905871432	Delete element
+1726906006206	Copy compilation unit
+1726906014403	Delete element
+1726907227155	Delete element
+1726909255104	Copy package
+1726909269141	Delete element
+1726909560670	Delete element
+1726909628135	Copy package
+1726909639060	Delete element
+1726909654768	Copy package
+1726909663581	Delete element
+1726909670454	Delete element
+1726909893475	Copy package
+1726909904956	Delete element
+1726910127004	Move compilation unit
+1726910143595	Move compilation unit
+1726910154622	Move compilation unit
+1726910165432	Move compilation unit
+1726910180145	Move compilation unit
+1726910187838	Move compilation unit
+1726910214084	Move compilation unit
+1726910264798	Move compilation unit
+1726910291907	Move compilation unit
+1726910329802	Move compilation unit
+1726910352851	Move compilation unit
+1726910369147	Move compilation unit
+1726910393132	Move compilation unit
+1726910603390	Rename type 'User'
+1726910636657	Delete element
+1726910643550	Delete element
+1726910649676	Delete element
+1726910655306	Delete element
+1726910662083	Delete element
+1726910668298	Delete element
+1726910676354	Delete element
+1726910681854	Delete element
+1726910687608	Delete element
+1726911856962	Rename type 'UserEntity'
+1726937590165	Rename package 'com.example.crm.main'
+1726937629806	Delete element
+1726937637280	Delete element
+1726945034237	Delete element

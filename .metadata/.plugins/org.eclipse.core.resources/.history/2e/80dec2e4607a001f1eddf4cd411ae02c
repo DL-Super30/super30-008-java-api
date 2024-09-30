@@ -1,0 +1,35 @@
+package lead.com;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
+
+
+@Entity
+public class LeadEntity {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String name;
+    private String cc;
+    private String phone;
+    private String email;
+    private double feeQuoted;
+    private String leadStatus;
+    private String leadSource;
+    private String stack;
+    private String course;
+    private String classMode;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private String nextFollowUp; // or LocalDate if you prefer
+
+    private String description;
+
+    // Getters and Setters
+    // ...
+}

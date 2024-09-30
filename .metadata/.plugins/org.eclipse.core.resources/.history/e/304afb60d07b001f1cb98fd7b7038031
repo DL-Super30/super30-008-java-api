@@ -1,0 +1,193 @@
+package learners.com;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import java.util.Date;
+
+@Entity
+@Table(name = "learners")
+public class Learner {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank(message = "First name is required")
+    @Size(min = 2, message = "First name should have at least 2 characters")
+    private String firstName;
+
+    @NotBlank(message = "Last name is required")
+    @Size(min = 2, message = "Last name should have at least 2 characters")
+    private String lastName;
+
+    private String idProof; // You can define this further based on requirements
+
+    @NotBlank(message = "Phone number is required")
+    private String phone;
+
+    
+    private String dateOfBirth;
+
+    @NotBlank(message = "Email is required")
+    private String email;
+
+    
+    private String registeredDate;
+
+    private String location;
+
+    private String batchIds; // Assuming this is a comma-separated string or can be adjusted to a list
+
+    private String alternatePhone;
+
+    private String description;
+
+    private String exchangeRate;
+
+    private String source;
+
+    private String attendedDemo;
+
+    private String learnerOwner; // Define based on your logic
+
+    private String learnerStage; // Define based on your logic
+
+    // Getters and Setters
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getIdProof() {
+        return idProof;
+    }
+
+    public void setIdProof(String idProof) {
+        this.idProof = idProof;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRegisteredDate() {
+        return registeredDate;
+    }
+
+    public void setRegisteredDate(String registeredDate) {
+        this.registeredDate = registeredDate;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getBatchIds() {
+        return batchIds;
+    }
+
+    public void setBatchIds(String batchIds) {
+        this.batchIds = batchIds;
+    }
+
+    public String getAlternatePhone() {
+        return alternatePhone;
+    }
+
+    public void setAlternatePhone(String alternatePhone) {
+        this.alternatePhone = alternatePhone;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getExchangeRate() {
+        return exchangeRate;
+    }
+
+    public void setExchangeRate(String exchangeRate) {
+        this.exchangeRate = exchangeRate;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String isAttendedDemo() {
+        return attendedDemo;
+    }
+
+    public void setAttendedDemo(String attendedDemo) {
+        this.attendedDemo = attendedDemo;
+    }
+
+    public String getLearnerOwner() {
+        return learnerOwner;
+    }
+
+    public void setLearnerOwner(String learnerOwner) {
+        this.learnerOwner = learnerOwner;
+    }
+
+    public String getLearnerStage() {
+        return learnerStage;
+    }
+
+    public void setLearnerStage(String learnerStage) {
+        this.learnerStage = learnerStage;
+    }
+}

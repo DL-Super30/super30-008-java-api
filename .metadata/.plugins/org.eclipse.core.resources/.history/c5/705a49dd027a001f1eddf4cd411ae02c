@@ -1,0 +1,9 @@
+package lead.com;
+
+public @interface ApiModelProperty {
+
+	String example();
+
+	String value();
+
+}

@@ -1,0 +1,51 @@
+package learners.com;
+
+import learners.com.Learner;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import jakarta.validation.Valid;
+
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/learners")
+public class LearnerController {
+
+    @Autowired
+    private LearnerService learnerService;
+
+    @PostMapping
+    public ResponseEntity<Learner> createLearner(@Valid @RequestBody Learner learner) {
+        Learner createdLearner = learnerService.createLearner(learner);
+        return ResponseEntity.ok(createdLearner);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<Learner>> getAllLearners(@RequestParam(required = false) String name, Pageable pageable) {
+        Page<Learner> learners = learnerService.searchLearners(name, pageable);
+        return ResponseEntity.ok(learners);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Learner> getLearnerById(@PathVariable(value = "id") Long learnerId) {
+        Optional<Learner> learner = learnerService.getLearnerById(learnerId);
+        return learner.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Learner> updateLearner(@PathVariable(value = "id") Long learnerId, @Valid @RequestBody Learner learnerDetails) {
+        Learner updatedLearner = learnerService.updateLearner(learnerId, learnerDetails);
+        return ResponseEntity.ok(updatedLearner);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteLearner(@PathVariable(value = "id") Long learnerId) {
+        learnerService.deleteLearner(learnerId);
+        return ResponseEntity.noContent().build();
+    }
+}

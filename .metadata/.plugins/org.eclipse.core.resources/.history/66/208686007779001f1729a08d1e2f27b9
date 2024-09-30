@@ -1,0 +1,66 @@
+package courses.com;
+
+import java.net.URI;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
+@RestController
+@RequestMapping("/courses")
+public class CourseController {
+
+    @Autowired
+    private CourseService courseService;
+
+    // Get all courses with pagination support
+    @GetMapping
+    public ResponseEntity<List<Course>> getAllCourses(Pageable pageable) {
+        List<Course> courses = courseService.getAllCourses(pageable);
+        return ResponseEntity.ok(courses);
+    }
+
+    // Get course detail by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Course> getCourseDetail(@PathVariable Long id) {
+        Course course = courseService.getCourseDetail(id);
+        if (course != null) {
+            return ResponseEntity.ok(course);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // Create a new course
+    @PostMapping
+    public ResponseEntity<Course> createCourse(@RequestBody Course course) {
+        Course createdCourse = courseService.createCourse(course);
+        return ResponseEntity.created(URI.create("/courses/")).body(createdCourse);
+    }
+
+    // Update an existing course
+    @PutMapping("/{id}")
+    public ResponseEntity<Course> updateCourse(@PathVariable Long id, @RequestBody Course course) {
+        Course updatedCourse = courseService.updateCourse(id, course);
+        if (updatedCourse != null) {
+            return ResponseEntity.ok(updatedCourse);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // Delete a course by ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCourse(@PathVariable Long id) {
+        boolean isDeleted = courseService.deleteCourse(id);
+        if (isDeleted) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+}

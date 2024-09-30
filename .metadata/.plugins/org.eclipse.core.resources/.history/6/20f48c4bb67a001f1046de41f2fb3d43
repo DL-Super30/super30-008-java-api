@@ -1,0 +1,96 @@
+package learners.com.service;
+
+import learners.com.Learner;
+import learners.com.repository.LearnerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+@Service
+public class LearnerService {
+
+    @Autowired
+    private LearnerRepository learnerRepository;
+
+    /**
+     * Create a new Learner.
+     *
+     * @param learner Learner object to be saved.
+     * @return Saved Learner object.
+     */
+    public Learner saveLearner(Learner learner) {
+        return learnerRepository.save(learner);
+    }
+
+    /**
+     * Search for Learners by firstName or lastName with pagination.
+     *
+     * @param name     Search term for firstName or lastName.
+     * @param pageable Pageable object for pagination.
+     * @return A page of Learners that match the search criteria.
+     */
+    public Page<Learner> searchLearners(String name, Pageable pageable) {
+        if (name == null || name.isEmpty()) {
+            // Return all learners if no name filter is provided
+            return learnerRepository.findAll(pageable);
+        }
+        // Search by firstName or lastName
+        return learnerRepository.findByFirstNameContainingOrLastNameContaining(name, name, pageable);
+    }
+
+    /**
+     * Get a Learner by ID.
+     *
+     * @param id Learner ID.
+     * @return Optional containing the Learner object if found, empty otherwise.
+     */
+    public Optional<Learner> getLearnerById(Long id) {
+        return learnerRepository.findById(id);
+    }
+
+    /**
+     * Update a Learner by ID.
+     *
+     * @param id            Learner ID to be updated.
+     * @param learnerDetails Updated Learner details.
+     * @return Updated Learner object.
+     */
+    public Learner updateLearner(Long id, Learner learnerDetails) {
+        // Fetch the learner to update
+        Learner existingLearner = learnerRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Learner not found with id: " + id));
+
+        // Update fields
+        existingLearner.setFirstName(learnerDetails.getFirstName());
+        existingLearner.setLastName(learnerDetails.getLastName());
+        existingLearner.setIdProof(learnerDetails.getIdProof());
+        existingLearner.setPhone(learnerDetails.getPhone());
+        existingLearner.setDateOfBirth(learnerDetails.getDateOfBirth());
+        existingLearner.setEmail(learnerDetails.getEmail());
+        existingLearner.setRegisteredDate(learnerDetails.getRegisteredDate());
+        existingLearner.setLocation(learnerDetails.getLocation());
+        existingLearner.setBatchIds(learnerDetails.getBatchIds());
+        existingLearner.setAlternatePhone(learnerDetails.getAlternatePhone());
+        existingLearner.setDescription(learnerDetails.getDescription());
+        existingLearner.setExchangeRate(learnerDetails.getExchangeRate());
+        existingLearner.setSource(learnerDetails.getSource());
+        existingLearner.setAttendedDemo(learnerDetails.getAttendedDemo());
+        existingLearner.setLearnerOwner(learnerDetails.getLearnerOwner());
+        existingLearner.setLearnerStage(learnerDetails.getLearnerStage());
+
+        // Save updated learner
+        return learnerRepository.save(existingLearner);
+    }
+
+    /**
+     * Delete a Learner by ID.
+     *
+     * @param id Learner ID to be deleted.
+     */
+    public void deleteLearner(Long id) {
+        learnerRepository.deleteById(id);
+    }
+}

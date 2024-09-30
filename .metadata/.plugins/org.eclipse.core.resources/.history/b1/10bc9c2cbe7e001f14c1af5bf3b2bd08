@@ -1,0 +1,68 @@
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import java.util.Optional;
+
+@Service
+public class LearnerService {
+
+    @Autowired
+    private LearnerRepository learnerRepository; 
+
+    public Learner saveLearner(Learner learner) {
+        return learnerRepository.save(learner);
+    }
+
+    public Page<Learner> findAll(Pageable pageable) {
+        return learnerRepository.findAll(pageable);
+    }
+
+    public Page<Learner> searchLearners(String firstName, Pageable pageable) {
+        return learnerRepository.findByfirstnameContainingIgnoreCase(firstName, pageable);
+    }
+
+    public Learner getLearnerById(Long id) {
+        return learnerRepository.findById(id)
+                .orElseThrow(() -> new LearnerNotFoundException("Learner not found with id: " + id));
+    }
+
+    public Learner updateLearner(Long id, Learner learnerDetails) {
+        Learner existingLearner = getLearnerById(id);
+
+        existingLearner.setFirstName(learnerDetails.getFirstName()); // Use camelCase
+        existingLearner.setLastName(learnerDetails.getLastName());   // Use camelCase
+        existingLearner.setIdProof(learnerDetails.getIdProof());
+        existingLearner.setPhone(learnerDetails.getPhone());
+        existingLearner.setDateOfBirth(learnerDetails.getDateOfBirth());
+        existingLearner.setEmail(learnerDetails.getEmail());
+        existingLearner.setRegisteredDate(learnerDetails.getRegisteredDate());
+        existingLearner.setLocation(learnerDetails.getLocation());
+        existingLearner.setBatchIds(learnerDetails.getBatchIds());
+        existingLearner.setAlternatePhone(learnerDetails.getAlternatePhone());
+        existingLearner.setDescription(learnerDetails.getDescription());
+        existingLearner.setExchangeRate(learnerDetails.getExchangeRate());
+        existingLearner.setSource(learnerDetails.getSource());
+        existingLearner.setAttendedDemo(learnerDetails.getAttendedDemo());
+        existingLearner.setLearnerOwner(learnerDetails.getLearnerOwner());
+        existingLearner.setLearnerStage(learnerDetails.getLearnerStage());
+        existingLearner.setCurrency(learnerDetails.getCurrency());
+        existingLearner.setLeadCreatedTime(learnerDetails.getLeadCreatedTime());
+        existingLearner.setCounsellingDoneBy(learnerDetails.getCounsellingDoneBy());
+        existingLearner.setRegisteredCourse(learnerDetails.getRegisteredCourse());
+        existingLearner.setPreferableTime(learnerDetails.getPreferableTime());
+        existingLearner.setTechStack(learnerDetails.getTechStack());
+        existingLearner.setBatchTiming(learnerDetails.getBatchTiming());
+        existingLearner.setCourseComments(learnerDetails.getCourseComments());
+        existingLearner.setModeOfClass(learnerDetails.getModeOfClass());
+        existingLearner.setSlackAccess(learnerDetails.getSlackAccess());
+        existingLearner.setComment(learnerDetails.getComment());
+        existingLearner.setLmsAccess(learnerDetails.getLmsAccess());
+
+        return learnerRepository.save(existingLearner);
+    }
+
+    public void deleteLearner(Long id) {
+        learnerRepository.deleteById(id);
+    }
+}

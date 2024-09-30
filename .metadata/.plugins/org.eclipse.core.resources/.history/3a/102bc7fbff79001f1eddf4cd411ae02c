@@ -1,0 +1,66 @@
+package lead.com;
+
+import lead.com.LeadEntity;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class LeadService {
+
+    private final LeadRepository leadRepository;
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+    @Autowired
+    public LeadService(LeadRepository leadRepository) {
+        this.leadRepository = leadRepository;
+    }
+
+    // Create a new lead
+    public LeadEntity createLead(LeadEntity leadEntity) {
+        return leadRepository.save(leadEntity);
+    }
+
+    // Update an existing lead
+    public LeadEntity updateLead(String id, LeadEntity leadEntity) {
+        if (!leadRepository.existsById(id)) {
+            throw new RuntimeException("Lead not found");
+        }
+        ((LeadEntity) leadEntity).setCc(id);
+        return leadRepository.save(leadEntity);
+    }
+
+    // Retrieve a lead by ID
+    public Optional<LeadEntity> getLeadById(int id) {
+        return leadRepository.findById(id);
+    }
+
+    // Retrieve all leads
+    public List<LeadEntity> getAllLeads() {
+        return leadRepository.findAll();
+    }
+
+    // Delete a lead by ID
+    public void deleteLead(int id) {
+        if (!leadRepository.existsById(id)) {
+            throw new RuntimeException("Lead not found");
+        }
+        leadRepository.deleteById(id);
+    }
+
+    // Utility method to parse date from String to LocalDate
+    public LocalDate parseDate(String dateString) {
+        return LocalDate.parse(dateString, dateFormatter);
+    }
+
+    // Example method to set nextFollowUp date from String
+    public void setNextFollowUpDate(LeadEntity leadEntity, String dateString) {
+        LocalDate nextFollowUpDate = parseDate(dateString);
+        leadEntity.setNextFollowUp(nextFollowUpDate);
+    }
+}

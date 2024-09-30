@@ -1,0 +1,25 @@
+package learners.com;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+public interface LearnerRepository extends JpaRepository<Learner, Long> {
+
+    // Search Learners by name or email
+    @Query("SELECT l FROM Learner l WHERE LOWER(l.name) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+           "OR LOWER(l.email) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    Page<Learner> findByKeyword(@Param("keyword") String keyword, Pageable pageable);
+
+    // Filter Learners by courseName
+    Page<Learner> findByCourseName(String courseName, Pageable pageable);
+
+    // Search by keyword and filter by courseName
+    @Query("SELECT l FROM Learner l WHERE (LOWER(l.name) LIKE LOWER(CONCAT('%', :keyword, '%')) " +
+           "OR LOWER(l.email) LIKE LOWER(CONCAT('%', :keyword, '%'))) AND l.courseName = :courseName")
+    Page<Learner> findByKeywordAndCourseName(@Param("keyword") String keyword, 
+                                             @Param("courseName") String courseName, 
+                                             Pageable pageable);
+}

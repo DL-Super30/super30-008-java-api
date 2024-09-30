@@ -1,0 +1,30 @@
+package user.com;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf().disable() // Disable CSRF protection if not needed
+            .authorizeHttpRequests(authorize -> authorize
+                .requestMatchers(
+                    "/v3/api-docs/**",
+                    "/swagger-ui/**",
+                    "/swagger-ui.html",
+                    "/webjars/**"
+                ).permitAll() // Allow access to Swagger UI and API docs
+                .anyRequest().authenticated() // Require authentication for all other requests
+            )
+            .httpBasic().disable(); // Disable basic authentication page
+
+        return http.build();
+    }
+}

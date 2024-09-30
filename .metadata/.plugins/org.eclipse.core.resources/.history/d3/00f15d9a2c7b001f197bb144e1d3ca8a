@@ -1,0 +1,54 @@
+package user.com;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.RequestMatcher;
+
+import jakarta.servlet.http.HttpServletRequest;
+
+
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests()
+            .requestMatchers(new SwaggerRequestMatcher()).permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .csrf().disable();
+    }
+
+    // Define the PasswordEncoder bean
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    private static class SwaggerRequestMatcher implements RequestMatcher {
+        public boolean matches(HttpServletRequest request) {
+            String path = request.getRequestURI();
+            return path.startsWith("/v2/api-docs") ||
+                   path.startsWith("/v3/api-docs") ||
+                   path.startsWith("/swagger-resources") ||
+                   path.startsWith("/swagger-ui") ||
+                   path.startsWith("/swagger-ui.html") ||
+                   path.startsWith("/webjars") ||
+                   path.equals("/swagger-ui/index.html");
+        }
+
+		@Override
+		public boolean matches(jakarta.servlet.http.HttpServletRequest request) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+    }
+}

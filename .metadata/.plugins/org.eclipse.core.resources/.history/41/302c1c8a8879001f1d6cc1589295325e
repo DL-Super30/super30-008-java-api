@@ -1,0 +1,32 @@
+package opportunity.com;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+
+@RestController
+@RequestMapping("/opportunities")
+public class OpportunityController {
+
+    @Autowired
+    private OpportunityService opportunityService;
+
+    // Create Opportunity
+    @PostMapping
+    public ResponseEntity<Opportunity> createOpportunity(@RequestBody Opportunity opportunity) {
+        Opportunity createdOpportunity = opportunityService.createOpportunity(opportunity);
+        return new ResponseEntity<>(createdOpportunity, HttpStatus.CREATED);
+    }
+
+    // Read (Get all Opportunities with Pagination, Search and Filter)
+    @GetMapping
+    public ResponseEntity<Page<Opportunity>> getAllOpportunities(
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) String status,
+            Pageable pageable) {
+        
+        Page<Opportunity

@@ -1,0 +1,84 @@
+package courses.com;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
+@RestController
+@RequestMapping("/api/courses")
+public class CourseController {
+
+    @Autowired
+    private CourseService courseService;
+    @Operation(summary = "fetch all courses")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "fetch successfully"),
+        @ApiResponse(responseCode = "404", description = "courser not found")
+    })
+
+    @GetMapping
+    public List<Course> getAllCourses() {
+        return courseService.getAllCourses();
+    }
+    @Operation(summary = "fetch course by id")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "fetched successfully"),
+        @ApiResponse(responseCode = "404", description = "course not found")
+    })
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Course> getCourseById(@PathVariable Long id) {
+        Optional<Course> course = courseService.getCourseById(id);
+        if (course.isPresent()) {
+            return ResponseEntity.ok(course.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @Operation(summary = "create a new course")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "created successfully"),
+        @ApiResponse(responseCode = "404", description = "course not found")
+    })
+
+    @PostMapping
+    public Course createCourse(@RequestBody Course course) {
+        return courseService.createCourse(course);
+    }
+    @Operation(summary = "update an existing course by id")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "created successfully"),
+        @ApiResponse(responseCode = "404", description = "course not found")
+    })
+    @PutMapping("/{id}")
+    public ResponseEntity<Course> updateCourse(
+        @PathVariable Long id,
+        @RequestBody Course courseDetails
+    ) {
+        try {
+            Course updatedCourse = courseService.updateCourse(id, courseDetails);
+            return ResponseEntity.ok(updatedCourse);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        
+    }
+    }
+    @Operation(summary = "delete an existing course by id")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "created successfully"),
+        @ApiResponse(responseCode = "404", description = "course not found")
+    })
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCourse(@PathVariable Long id) {
+        courseService.deleteCourse(id);
+        return ResponseEntity.noContent().build();
+    }
+}

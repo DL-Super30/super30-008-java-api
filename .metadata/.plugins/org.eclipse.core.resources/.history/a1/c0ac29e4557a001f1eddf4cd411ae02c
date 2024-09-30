@@ -1,0 +1,205 @@
+package lead.com;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.Objects;
+
+import org.springframework.boot.context.properties.bind.BindException;
+import org.springframework.format.datetime.DateFormatter;
+
+@Entity
+@Table(name = "lead")
+public class LeadEntity {
+
+    private static final DateTimeFormatter DATE_FORMATTER = null;
+
+	private static final String leadRepository = null;
+
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    private String name;
+    private String cc;
+    private String phone;
+    private String email;
+    private String feeQuoted;
+    private String leadStatus;
+    private String leadSource;
+    private String stack;
+    private String course;
+    private String classMode;
+
+    // Use JsonFormat to enforce the date format for nextFollowUp without time
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @Column(name = "next_follow_up")
+    private LocalDate nextFollowUp;
+
+    private String description;
+
+	private Object leadReopsitory;
+
+    // Constructors, Getters, Setters, equals, hashCode, toString...
+
+    public LocalDate getNextFollowUp() {
+        return nextFollowUp;
+    }
+
+    public void setNextFollowUp(LocalDate nextFollowUpDate) {
+        this.nextFollowUp = nextFollowUpDate;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getCc() {
+        return cc;
+    }
+
+    public void setCc(String cc) {
+        this.cc = cc;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFeeQuoted() {
+        return feeQuoted;
+    }
+
+    public void setFeeQuoted(String feeQuoted) {
+        this.feeQuoted = feeQuoted;
+    }
+
+    public String getLeadStatus() {
+        return leadStatus;
+    }
+
+    public void setLeadStatus(String leadStatus) {
+        this.leadStatus = leadStatus;
+    }
+
+    public String getLeadSource() {
+        return leadSource;
+    }
+
+    public void setLeadSource(String leadSource) {
+        this.leadSource = leadSource;
+    }
+
+    public String getStack() {
+        return stack;
+    }
+
+    public void setStack(String stack) {
+        this.stack = stack;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
+    public String getClassMode() {
+        return classMode;
+    }
+
+    public void setClassMode(String classMode) {
+        this.classMode = classMode;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    // Custom setter for handling date parsing
+    public void setNextFollowUpDate(String nextFollowUpDate) {
+        try {
+            DateFormatter formatter = new DateFormatter();
+            this.nextFollowUp = LocalDate.parse(nextFollowUpDate);
+        } catch (BindException e) {
+            throw new IllegalArgumentException("Invalid date format: " + nextFollowUpDate);
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LeadEntity that = (LeadEntity) o;
+        return id == that.id && Objects.equals(name, that.name) && Objects.equals(cc, that.cc) &&
+                Objects.equals(phone, that.phone) && Objects.equals(email, that.email) &&
+                Objects.equals(feeQuoted, that.feeQuoted) && Objects.equals(leadStatus, that.leadStatus) &&
+                Objects.equals(leadSource, that.leadSource) && Objects.equals(stack, that.stack) &&
+                Objects.equals(course, that.course) && Objects.equals(classMode, that.classMode) &&
+                Objects.equals(nextFollowUp, that.nextFollowUp) && Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, cc, phone, email, feeQuoted, leadStatus, leadSource, stack, course, classMode, nextFollowUp, description);
+    }
+
+    @Override
+    public String toString() {
+        return "LeadEntity{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", cc='" + cc + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", feeQuoted='" + feeQuoted + '\'' +
+                ", leadStatus='" + leadStatus + '\'' +
+                ", leadSource='" + leadSource + '\'' +
+                ", stack='" + stack + '\'' +
+                ", course='" + course + '\'' +
+                ", classMode='" + classMode + '\'' +
+                ", nextFollowUp=" + nextFollowUp +
+                ", description='" + description + '\'' +
+                '}';
+    }
+
+public LeadEntity createLead(LeadEntity lead) {
+    try {
+        lead.setNextFollowUp(LocalDate.parse(lead.getNextFollowUp().toString(), DATE_FORMATTER));
+    } catch (DateTimeParseException e) {
+        throw new RuntimeException("Invalid date format for nextFollowUp. Expected format is dd/MM/yyyy.");
+    }
+    
+	  return ((Object) leadReopsitory).save(lead);
+}
+}

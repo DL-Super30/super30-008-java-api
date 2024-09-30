@@ -1,0 +1,70 @@
+package learners.com;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import java.time.LocalDate;
+
+@Entity
+@Table(name = "learners")
+public class Learner {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank(message = "First name is required")
+    @Size(min = 2, message = "First name should have at least 2 characters")
+    @Column(name = "firstname")
+    private String firstName; // Change to camelCase
+
+    @NotBlank(message = "Last name is required")
+    @Size(min = 2, message = "Last name should have at least 2 characters")
+    @Column(name = "lastname")
+    private String lastName; // Change to camelCase
+
+    @Column(name = "idproof")
+    private String idProof;
+
+    @NotBlank(message = "Phone number is required")
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "dateofbirth")
+    private LocalDate dateOfBirth;
+
+    @NotBlank(message = "Email is required")
+    @Email(message = "Email should be valid")
+    @Column(name = "email")
+    private String email;
+
+    // Other fields remain unchanged...
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFirstName() { // Change to camelCase
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) { // Change to camelCase
+        this.firstName = firstName;
+    }
+
+    public String getLastName() { // Change to camelCase
+        return lastName;
+    }
+
+    public void setLastName(String lastName) { // Change to camelCase
+        this.lastName = lastName;
+    }
+
+    // Other getters and setters remain unchanged...
+}

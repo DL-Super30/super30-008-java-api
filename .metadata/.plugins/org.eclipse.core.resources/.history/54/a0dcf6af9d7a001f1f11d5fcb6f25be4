@@ -1,0 +1,50 @@
+package lead.com;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/leads")
+public class LeadController {
+
+    @Autowired
+    private LeadService leadService;
+
+    // Create a new lead
+    @PostMapping
+    public ResponseEntity<LeadEntity> createLead(@RequestBody LeadEntity lead) {
+        LeadEntity createdLead = leadService.createLead(lead);
+        return ResponseEntity.ok(createdLead);
+    }
+
+    // Get all leads
+    @GetMapping
+    public List<LeadEntity> getAllLeads() {
+        return leadService.getAllLeads();
+    }
+
+    // Get a lead by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<LeadEntity> getLeadById(@PathVariable int id) {
+        return leadService.getLeadById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    // Update a lead by ID
+    @PutMapping("/{id}")
+    public ResponseEntity<LeadEntity> updateLead(@PathVariable int id, @RequestBody LeadEntity updatedLead) {
+        LeadEntity lead = leadService.updateLead(id, updatedLead);
+        return ResponseEntity.ok(lead);
+    }
+
+    // Delete a lead by ID
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteLead(@PathVariable int id) {
+        leadService.deleteLead(id);
+        return ResponseEntity.noContent().build();
+    }
+}

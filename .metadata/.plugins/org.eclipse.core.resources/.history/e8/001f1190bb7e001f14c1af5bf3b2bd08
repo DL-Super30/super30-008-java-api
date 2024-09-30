@@ -1,0 +1,337 @@
+package learners.com;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+@Entity
+@Table(name = "learners")
+public class Learner {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NotBlank(message = "First name is required")
+    @Size(min = 2, message = "First name should have at least 2 characters")
+    @Column(name = "firstname")
+    private String firstname;
+
+    @NotBlank(message = "Last name is required")
+    @Size(min = 2, message = "Last name should have at least 2 characters")
+    @Column(name = "lastname")
+    private String lastname;
+
+    @Column(name = "idproof")
+    private String idProof; 
+
+    @NotBlank(message = "Phone number is required")
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(name = "dateofbirth")
+    private String dateOfBirth;
+
+    @NotBlank(message = "Email is required")
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "registereddate")
+    private String registeredDate;
+
+    @Column(name = "location")
+    private String location;
+
+    @Column(name = "batchids")
+    private String batchIds; 
+
+    @Column(name = "alternatephone")
+    private String alternatePhone;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "exchangerate")
+    private String exchangeRate;
+
+    @Column(name = "source")
+    private String source;
+
+    @Column(name = "attendeddemo")
+    private String attendedDemo;
+
+    @Column(name = "learnerowner")
+    private String learnerOwner; 
+
+    @Column(name = "learnerstage")
+    private String learnerStage;
+
+    @Column(name = "currency")
+    private String currency;
+
+    @Column(name = "leadcreatedtime")
+    private String leadCreatedTime;
+
+    @Column(name = "counsellingdoneby")
+    private String counsellingDoneBy;
+
+    @Column(name = "registeredcourse")
+    private String registeredCourse;
+
+    @Column(name = "preferabletime")
+    private String preferableTime;
+
+    @Column(name = "techstack")
+    private String techStack;
+
+    @Column(name = "batchtiming")
+    private String batchTiming;
+
+    @Column(name = "coursecomments")
+    private String courseComments;
+
+    @Column(name = "modeofclass")
+    private String modeOfClass;
+
+    @Column(name = "slackaccess")
+    private String slackAccess;
+
+    @Column(name = "comment")
+    private String comment;
+
+    @Column(name = "lmsaccess")
+    private String lmsAccess;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getfirstname() {
+        return firstname;
+    }
+
+    public void setfirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getIdProof() {
+        return idProof;
+    }
+
+    public void setIdProof(String idProof) {
+        this.idProof = idProof;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRegisteredDate() {
+        return registeredDate;
+    }
+
+    public void setRegisteredDate(String registeredDate) {
+        this.registeredDate = registeredDate;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getBatchIds() {
+        return batchIds;
+    }
+
+    public void setBatchIds(String batchIds) {
+        this.batchIds = batchIds;
+    }
+
+    public String getAlternatePhone() {
+        return alternatePhone;
+    }
+
+    public void setAlternatePhone(String alternatePhone) {
+        this.alternatePhone = alternatePhone;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getExchangeRate() {
+        return exchangeRate;
+    }
+
+    public void setExchangeRate(String exchangeRate) {
+        this.exchangeRate = exchangeRate;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getAttendedDemo() {
+        return attendedDemo;
+    }
+
+    public void setAttendedDemo(String attendedDemo) {
+        this.attendedDemo = attendedDemo;
+    }
+
+    public String getLearnerOwner() {
+        return learnerOwner;
+    }
+
+    public void setLearnerOwner(String learnerOwner) {
+        this.learnerOwner = learnerOwner;
+    }
+
+    public String getLearnerStage() {
+        return learnerStage;
+    }
+
+    public void setLearnerStage(String learnerStage) {
+        this.learnerStage = learnerStage;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getLeadCreatedTime() {
+        return leadCreatedTime;
+    }
+
+    public void setLeadCreatedTime(String leadCreatedTime) {
+        this.leadCreatedTime = leadCreatedTime;
+    }
+
+    public String getCounsellingDoneBy() {
+        return counsellingDoneBy;
+    }
+
+    public void setCounsellingDoneBy(String counsellingDoneBy) {
+        this.counsellingDoneBy = counsellingDoneBy;
+    }
+
+    public String getRegisteredCourse() {
+        return registeredCourse;
+    }
+
+    public void setRegisteredCourse(String registeredCourse) {
+        this.registeredCourse = registeredCourse;
+    }
+
+    public String getPreferableTime() {
+        return preferableTime;
+    }
+
+    public void setPreferableTime(String preferableTime) {
+        this.preferableTime = preferableTime;
+    }
+
+    public String getTechStack() {
+        return techStack;
+    }
+
+    public void setTechStack(String techStack) {
+        this.techStack = techStack;
+    }
+
+    public String getBatchTiming() {
+        return batchTiming;
+    }
+
+    public void setBatchTiming(String batchTiming) {
+        this.batchTiming = batchTiming;
+    }
+
+    public String getCourseComments() {
+        return courseComments;
+    }
+
+    public void setCourseComments(String courseComments) {
+        this.courseComments = courseComments;
+    }
+
+    public String getModeOfClass() {
+        return modeOfClass;
+    }
+
+    public void setModeOfClass(String modeOfClass) {
+        this.modeOfClass = modeOfClass;
+    }
+
+    public String getSlackAccess() {
+        return slackAccess;
+    }
+
+    public void setSlackAccess(String slackAccess) {
+        this.slackAccess = slackAccess;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getLmsAccess() {
+        return lmsAccess;
+    }
+
+    public void setLmsAccess(String lmsAccess) {
+        this.lmsAccess = lmsAccess;
+    }
+}

@@ -1,0 +1,101 @@
+package learners.com;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import lead.com.LeadEntity;
+import lead.com.LeadService; // Ensure you import the LeadService class
+
+@RestController
+@RequestMapping("/learners")
+public class LearnerController {
+
+    @Autowired
+    private LearnerService learnerService;
+
+    @Autowired
+    private LeadService leadService; // Added LeadService to create leads
+
+    // Create Learner
+    @Operation(summary = "Create a new learner")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Created successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid input")
+    })
+    @PostMapping
+    public ResponseEntity<Learner> createLearner(@RequestBody Learner learner) {
+        Learner createdLearner = learnerService.createLearner(learner);
+        return new ResponseEntity<>(createdLearner, HttpStatus.CREATED);
+    }
+
+    // Read (Get all Learners with Pagination and Filter by Course Name)
+    @Operation(summary = "Get all learners with pagination")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Fetched successfully"),
+        @ApiResponse(responseCode = "404", description = "Learner not found")
+    })
+    @GetMapping
+    public ResponseEntity<Page<Learner>> getAllLearners(
+            @RequestParam(required = false) String courseName,
+            Pageable pageable) {
+        
+        Page<Learner> learners = learnerService.getAllLearners(courseName, pageable);
+        return new ResponseEntity<>(learners, HttpStatus.OK);
+    }
+
+    // Get Single Learner by ID
+    @Operation(summary = "Get learner by ID")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Fetched successfully"),
+        @ApiResponse(responseCode = "404", description = "Learner not found")
+    })
+    @GetMapping("/{id}")
+    public ResponseEntity<Learner> getLearnerById(@PathVariable Long id) {
+        Learner learner = learnerService.getLearnerById(id);
+        return new ResponseEntity<>(learner, HttpStatus.OK);
+    }
+
+    // Update Learner
+    @Operation(summary = "Update an existing learner by ID")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Updated successfully"),
+        @ApiResponse(responseCode = "404", description = "Learner not found")
+    })
+    @PutMapping("/{id}")
+    public ResponseEntity<Learner> updateLearner(
+            @PathVariable Long id, @RequestBody Learner learnerDetails) {
+        Learner updatedLearner = learnerService.updateLearner(id, learnerDetails);
+        return new ResponseEntity<>(updatedLearner, HttpStatus.OK);
+    }
+
+    // Delete Learner
+    @Operation(summary = "Delete an existing learner by ID")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "204", description = "Deleted successfully"),
+        @ApiResponse(responseCode = "404", description = "Learner not found")
+    })
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteLearner(@PathVariable Long id) {
+        learnerService.deleteLearner(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    // Create Lead
+    @Operation(summary = "Create a new lead")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Lead created successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid input")
+    })
+    @PostMapping("/createLead")
+    public ResponseEntity<LeadEntity> createLead(@RequestBody LeadEntity lead) {
+        LeadEntity createdLead = leadService.createLead(lead);
+        return new ResponseEntity<>(createdLead, HttpStatus.CREATED);
+    }
+}

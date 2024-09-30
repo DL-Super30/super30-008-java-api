@@ -1,0 +1,50 @@
+package learners.com;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.ResourceAccessException;
+
+@Service
+public class LearnerService {
+
+    @Autowired
+    private LearnerRepository learnerRepository;
+
+    // Create a new learner
+    @Transactional
+    public Learner createLearner(Learner learner) {
+        return learnerRepository.save(learner);
+    }
+
+    // Get learners with pagination and filtering by course name
+ 
+    
+
+    // Get a single learner by ID
+    @Transactional(readOnly = true)
+    public Learner getLearnerById(Long id) {
+        return learnerRepository.findById(id)
+            .orElseThrow(() -> new ResourceAccessException("Learner not found with id: " + id));
+    }
+
+    // Update an existing learner
+    @Transactional
+    public Learner updateLearner(Long id, Learner learnerDetails) {
+        Learner learner = getLearnerById(id);
+        learner.setFirstName(learnerDetails.getFirstName());
+        learner.setEmail(learnerDetails.getEmail());
+        learner.setLastName(learnerDetails.getLastName());
+        // Update other fields as needed
+        return learnerRepository.save(learner);
+    }
+
+    // Delete a learner by ID
+    @Transactional
+    public void deleteLearner(Long id) {
+        Learner learner = getLearnerById(id);
+        learnerRepository.delete(learner);
+    }
+}
