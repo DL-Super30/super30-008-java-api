@@ -3,36 +3,52 @@ package opportunity.com;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
+
 
 @RestController
 @RequestMapping("/api/opportunities")
+@Validated
 public class OpportunityController {
+
+    private static final Logger logger = LoggerFactory.getLogger(OpportunityController.class);
 
     @Autowired
     private OpportunityService opportunityService;
 
-    // CREATE operation
     @Operation(summary = "Create a new opportunity")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "201", description = "Opportunity created successfully"),
-        @ApiResponse(responseCode = "400", description = "Invalid request")
+        @ApiResponse(responseCode = "400", description = "Invalid request"),
+        @ApiResponse(responseCode = "409", description = "Email already exists in opportunity")
     })
     @PostMapping
-    public ResponseEntity<Opportunity> createOpportunity(@RequestBody Opportunity opportunity) {
-        Opportunity createdOpportunity = opportunityService.saveOpportunity(opportunity);
-        URI location = URI.create("/api/opportunities/" + createdOpportunity.getId());
-        return ResponseEntity.created(location).body(createdOpportunity);
+    public ResponseEntity<?> createOpportunity(@Validated @RequestBody Opportunity opportunity) {
+        // Log the incoming opportunity data
+        logger.info("Creating opportunity with data: {}", opportunity);
+
+        try {
+            Opportunity createdOpportunity = opportunityService.createOpportunity(opportunity);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdOpportunity);
+        } catch (IllegalArgumentException e) {
+            logger.warn("Conflict while creating opportunity: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        } catch (Exception e) {
+            logger.error("Error creating opportunity", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while creating the opportunity.");
+        }
     }
 
-    // READ operation with pagination
     @Operation(summary = "Fetch list of opportunities", description = "Fetch all opportunities with pagination support.")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Fetched successfully"),
@@ -42,12 +58,19 @@ public class OpportunityController {
     public ResponseEntity<Page<Opportunity>> getOpportunities(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
+        if (size <= 0) {
+            return ResponseEntity.badRequest().body(null); // Bad request for invalid size
+        }
         Pageable pageable = PageRequest.of(page, size);
-        Page<Opportunity> opportunities = opportunityService.getOpportunities(pageable);
-        return ResponseEntity.ok(opportunities);
+        try {
+            Page<Opportunity> opportunities = opportunityService.getOpportunities(pageable);
+            return ResponseEntity.ok(opportunities);
+        } catch (Exception e) {
+            logger.error("Error fetching opportunities", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
     }
 
-    // READ single opportunity
     @Operation(summary = "Get an opportunity by ID")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Fetched successfully"),
@@ -55,26 +78,25 @@ public class OpportunityController {
     })
     @GetMapping("/{id}")
     public ResponseEntity<Opportunity> getOpportunityById(@PathVariable Long id) {
-        return opportunityService.getOpportunityById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        Opportunity opportunity = opportunityService.getOpportunityById(id);
+        return opportunity != null 
+                ? ResponseEntity.ok(opportunity) 
+                : ResponseEntity.notFound().build();
     }
 
-    // UPDATE operation
-    @Operation(summary = "Update an existing opportunity by id")
+    @Operation(summary = "Update an existing opportunity by ID")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "200", description = "Updated successfully"),
         @ApiResponse(responseCode = "404", description = "Opportunity not found")
     })
     @PutMapping("/{id}")
-    public ResponseEntity<Opportunity> updateOpportunity(@PathVariable Long id, @RequestBody Opportunity updatedOpportunity) {
+    public ResponseEntity<Opportunity> updateOpportunity(@PathVariable Long id, @Validated @RequestBody Opportunity updatedOpportunity) {
         Opportunity savedOpportunity = opportunityService.updateOpportunity(id, updatedOpportunity);
-        return savedOpportunity != null 
+        return savedOpportunity != null
             ? ResponseEntity.ok(savedOpportunity)
             : ResponseEntity.notFound().build();
     }
 
-    // DELETE operation
     @Operation(summary = "Delete an opportunity by ID")
     @ApiResponses(value = {
         @ApiResponse(responseCode = "204", description = "Deleted successfully"),
@@ -90,4 +112,3 @@ public class OpportunityController {
         }
     }
 }
-

@@ -1,67 +1,77 @@
 package user.com;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+//import io.swagger.annotations.ApiModel;
+//import io.swagger.annotations.ApiModelProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
 @Entity
 @Table(name = "login")
 public class User {
+ @Id
+ @GeneratedValue(strategy = GenerationType.IDENTITY)
+ @Column(name = "id", unique = true, nullable = false)
+    @JsonProperty("id")
+ 
+    private long id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    @JsonProperty("id") 
-    private Long id;
-    
-    @Column(name = "username")
-    @JsonProperty("User Name") 
+    @Column(name = "username", nullable = false)
+    @JsonProperty("User Name")
+  
     private String username;
-    
-    @Column(name = "password")
-    @JsonProperty("Password") 
+
+    @Column(name = "password", nullable = false)
+    @JsonProperty("Password")
     private String password;
-    
-    @Column(name = "email")
-    @JsonProperty("Email") 
+
+    @Column(name = "email", unique = true, nullable = false)
+    @JsonProperty("Email")
+
     private String email;
 
-    // Getters and setters
+    // No-argument constructor
+    public User() {
+    }
 
-    public Long getId() {
+    // Getters and setters
+    public Long getid() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setid(long currentId) {
+        this.id = currentId;
     }
 
-    public String getUsername() {
+    public String getusername() {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setusername(String username) {
         this.username = username;
     }
 
-    public String getPassword() {
+    public String getpassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setpassword(String password) {
         this.password = password;
     }
 
-    public String getEmail() {
+    public String getemail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setemail(String email) {
         this.email = email;
     }
+
+	
+
+	
+	
 }

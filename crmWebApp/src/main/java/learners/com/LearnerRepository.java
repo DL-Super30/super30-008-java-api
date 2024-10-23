@@ -1,16 +1,21 @@
 package learners.com;
 
+
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface LearnerRepository extends JpaRepository<Learner, Long> {
-    // Method to find learners by first name
-    
-    
-    // Method to find learners by last name
-   
-    Page<Learner> findBylastnameContainingIgnoreCase(String lastname, Pageable pageable);
-    Page<Learner> findByfirstnameContainingIgnoreCase(String firstname, Pageable pageable);
+    boolean existsByEmail(String email);
 
+    boolean existsById(Long id);
+
+    void deleteById(Long id);
+
+    Optional<Learner> findById(Long id);
+
+    // Removed the method related to finding learners by lead ID
+    // List<Learner> findByLeadId(Long leadId);
 }

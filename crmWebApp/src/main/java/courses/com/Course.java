@@ -1,13 +1,13 @@
 package courses.com;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "courses")
@@ -17,36 +17,41 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    
+
     @Column(name = "course_name")
     @JsonProperty("Course Name")
     private String courseName;
-    
+
     @Column(name = "course_fee")
     @JsonProperty("Course Fee")
-    private String courseFee; 
-    
+    private String courseFee;
+
     @Column(name = "description")
     @JsonProperty("Description")
     private String description;
-    
-    @Column(name = "course_image")
-    @JsonProperty("Course Image")
-    private String courseImage;
-    
-    @Column(name = "coursebrochure")
-    @JsonProperty("Course Brochure")
-    private String coursebrochure; 
 
-    // Constructors
+    // Using byte[] to store image data
+    @Lob
+    @Column(name = "course_image", columnDefinition = "BLOB")
+    @JsonProperty("Course Image")
+    private byte[] courseImage;
+
+    // Using byte[] to store brochure data
+    @Lob
+    @Column(name = "coursebrochure", columnDefinition = "BLOB")
+    @JsonProperty("Course Brochure")
+    private byte[] courseBrochure;
+
+    // Default Constructor
     public Course() {}
 
-    public Course(String courseName, String courseFee, String description, String courseImage, String coursebrochure) {
+    // Parameterized Constructor
+    public Course(String courseName, String courseFee, String description, byte[] courseImage, byte[] courseBrochure) {
         this.courseName = courseName;
         this.courseFee = courseFee;
         this.description = description;
         this.courseImage = courseImage;
-        this.coursebrochure = coursebrochure;
+        this.courseBrochure = courseBrochure;
     }
 
     // Getters and Setters
@@ -82,21 +87,19 @@ public class Course {
         this.description = description;
     }
 
-    public String getCourseImage() {
+    public byte[] getCourseImage() {
         return courseImage;
     }
 
-    public void setCourseImage(String courseImage) {
+    public void setCourseImage(byte[] courseImage) {
         this.courseImage = courseImage;
     }
 
-    public String getcoursebrochure() {
-        return coursebrochure;
+    public byte[] getCourseBrochure() {
+        return courseBrochure;
     }
 
-    public void setCoursebrochure(String coursebrochure) {
-        this.coursebrochure = coursebrochure;
+    public void setCourseBrochure(byte[] courseBrochure) {
+        this.courseBrochure = courseBrochure;
     }
-
-	
 }

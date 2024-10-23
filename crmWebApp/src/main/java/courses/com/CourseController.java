@@ -19,9 +19,9 @@ public class CourseController {
     private CourseService courseService;
 
     // Get all courses
-    @Operation(summary = "fetch all courses")
+    @Operation(summary = "Fetch all courses")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "fetched all courses successfully"),
+        @ApiResponse(responseCode = "200", description = "Fetched all courses successfully"),
         @ApiResponse(responseCode = "400", description = "Invalid request")
     })
     @GetMapping
@@ -30,22 +30,23 @@ public class CourseController {
     }
 
     // Get a course by ID
-    @Operation(summary = "get course by id")
+    @Operation(summary = "Get course by ID")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "fetched by id successfully"),
+        @ApiResponse(responseCode = "200", description = "Fetched course by ID successfully"),
+        @ApiResponse(responseCode = "404", description = "Course not found"),
         @ApiResponse(responseCode = "400", description = "Invalid request")
     })
     @GetMapping("/{id}")
     public ResponseEntity<Course> getCourseById(@PathVariable Long id) {
-        return courseService.getCourseById(id)
+        return courseService.getCourseById(id) // Corrected method name to match the service layer
                 .map(course -> ResponseEntity.ok().body(course))
-                .orElse(ResponseEntity.notFound().build());
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     // Create a new course
     @Operation(summary = "Create a new course")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "course created successfully"),
+        @ApiResponse(responseCode = "201", description = "Course created successfully"),
         @ApiResponse(responseCode = "400", description = "Invalid request")
     })
     @PostMapping
@@ -55,9 +56,10 @@ public class CourseController {
     }
 
     // Update an existing course
-    @Operation(summary = "update course")
+    @Operation(summary = "Update a course")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "updated  successfully"),
+        @ApiResponse(responseCode = "200", description = "Course updated successfully"),
+        @ApiResponse(responseCode = "404", description = "Course not found"),
         @ApiResponse(responseCode = "400", description = "Invalid request")
     })
     @PutMapping("/{id}")
@@ -65,12 +67,14 @@ public class CourseController {
         Course updatedCourse = courseService.updateCourse(id, courseDetails);
         return ResponseEntity.ok(updatedCourse);
     }
-    @Operation(summary = "delete course")
+
+    // Delete a course by ID
+    @Operation(summary = "Delete a course by ID")
     @ApiResponses(value = {
-        @ApiResponse(responseCode = "201", description = "deleted successfully"),
+        @ApiResponse(responseCode = "204", description = "Course deleted successfully"),
+        @ApiResponse(responseCode = "404", description = "Course not found"),
         @ApiResponse(responseCode = "400", description = "Invalid request")
     })
-    // Delete a course by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCourse(@PathVariable Long id) {
         courseService.deleteCourse(id);

@@ -26,23 +26,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        
-    <!-- Spring Boot Starter Web (includes Jackson) -->
-    
-    
-    
-   <!-- <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-databind</artifactId>
-    </dependency>-->
-
-
-
-        <!-- Spring Security -->
-       <!-- <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>-->
 
         <!-- Spring Boot Data JPA -->
         <dependency>
@@ -56,15 +39,6 @@
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
         </dependency>
-        
-        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-<!--<dependency>
-    <groupId>org.projectlombok</groupId>
-    <artifactId>lombok</artifactId>
-    <version>1.18.30</version>
-    <scope>provided</scope>
-</dependency>-->
-
 
         <!-- SpringDoc for OpenAPI Documentation -->
         <dependency>
@@ -73,8 +47,8 @@
             <version>2.2.0</version>
         </dependency>
 
-        <!-- JWT for token generation -->
-       <!-- <dependency>
+        <!-- JJWT for JWT Token Generation and Validation -->
+        <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
             <version>0.11.5</version>
@@ -83,13 +57,12 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
             <version>0.11.5</version>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
             <version>0.11.5</version>
-        </dependency>-->
+        </dependency>
 
         <!-- Spring Boot Starter Test -->
         <dependency>
@@ -98,11 +71,16 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Spring Security Crypto for password encryption -->
+        <!-- Spring Security Crypto for Password Encryption -->
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-crypto</artifactId>
         </dependency>
+      <!--  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+</dependency>-->
+
     </dependencies>
 
     <build>
@@ -113,4 +91,16 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>your-profile-id</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <jwt.secret>nAc5iBZjX722yNQR8rsBlIJDo7phE2RTuRnbu4WotfA=</jwt.secret>
+            </properties>
+        </profile>
+    </profiles>
 </project>

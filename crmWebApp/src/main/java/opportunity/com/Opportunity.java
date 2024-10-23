@@ -1,13 +1,7 @@
 package opportunity.com;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import java.time.LocalDateTime;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "opportunities")
@@ -15,231 +9,182 @@ public class Opportunity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
-    
-    @Column(name = "name")
-    @JsonProperty("Name") 
-    private String name;
-    
-    @Column(name = "cc")
-    @JsonProperty("CC") 
-    private String cc;
-    
-    @Column(name = "phone")
-    @JsonProperty("Phone") 
-    private String phone;
-    
-    @Column(name = "email")
-    @JsonProperty("Email") 
-    private String email;
-    
-    @Column(name = "fee_quoted")
-    @JsonProperty("Fee Quoted") 
-    private String feeQuoted;
-    
-    @Column(name = "opportunity_status")
-    @JsonProperty("Opportunity Status") 
-    private String opportunityStatus;
-    
-    @Column(name = "opportunity_stage")
-    @JsonProperty("Opportunity Stage") 
-    private String opportunityStage;
-    
-    @Column(name = "visited_stage")
-    @JsonProperty("Visited Stage") 
-    private String visitedStage;
-    
-    @Column(name = "lost_opportunity_reason")
-    @JsonProperty("Lost Opportunity Reason") 
-    private String lostOpportunityReason;
-    
-    @Column(name = "next_follow_up")
-    @JsonProperty("Next FollowUp") 
-    private String nextFollowUp;
-    
-    @Column(name = "lead_status")
-    @JsonProperty("Lead Status")
-    private String leadStatus;
-    
-    @Column(name = "lead_source")
-    @JsonProperty("Lead Source")
-    private String leadSource;
-    
-    @Column(name = "course")
-    @JsonProperty("Course")
-    private String course;
-    
-    @Column(name = "description")
-    @JsonProperty("Description")
-    private String description;
-    
-    @Column(name = "classmode")
-    @JsonProperty("Class Mode")
-    private String classmode;
-    
-    @Column(name = "demoattendedstage")
-    @JsonProperty("Demo Attended Stage")
-    private String demoattendedstage;
-    
-    @Column(name = "stack")
-    @JsonProperty("Stack")
-    private String stack;
-    
-    @Column(name = "batchtiming")
-    @JsonProperty("Batch Timing")
-    private String batchtiming;
+    private Long id; // ID of the opportunity
+
+    private String name; // Opportunity name
+    private String cc; // Client's contact number
+    private String phone; // Opportunity contact number
+    private String email; // Opportunity email
+    private String feequoted; // Quoted fee for the opportunity
+    private String opportunitystatus; // Status of the opportunity
+    private String opportunitystage; // Current stage of the opportunity
+    private String visitedstage; // Stage visited by the opportunity
+    private String lostopportunityreason; // Reason for lost opportunity
+    private LocalDateTime nextfollowup; // Date for the next follow-up
+    private String leadstatus; // Status of the lead associated with the opportunity
+    private String leadsource; // Source of the lead
+    private String course; // Course associated with the opportunity
+    private String description; // Description of the opportunity
+    private String classmode; // Mode of the class
+    private String demoattendedstage; // Stage of demo attendance
+    private String batchtiming; // Timing for the batch
+    private String stack; // Technology stack associated with the opportunity
+
+    // No-argument constructor
+    public Opportunity() {
+        // Default constructor
+    }
 
     // Getters and setters
-    public Long getId() {
-        return id;
+    public Long getid() {
+        return id; // Get opportunity ID
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setid(Long id) {
+        this.id = id; // Set opportunity ID
     }
 
-    public String getName() {
-        return name;
+    public String getname() {
+        return name; // Get opportunity name
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setname(String name) {
+        this.name = name; // Set opportunity name
     }
 
-    public String getCc() {
-        return cc;
+    public String getcc() {
+        return cc; // Get client's contact number
     }
 
-    public void setCc(String cc) {
-        this.cc = cc;
+    public void setcc(String cc) {
+        this.cc = cc; // Set client's contact number
     }
 
-    public String getPhone() {
-        return phone;
+    public String getphone() {
+        return phone; // Get opportunity contact number
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setphone(String phone) {
+        this.phone = phone; // Set opportunity contact number
     }
 
-    public String getEmail() {
-        return email;
+    public String getemail() {
+        return email; // Get opportunity email
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setemail(String email) {
+        this.email = email; // Set opportunity email
     }
 
-    public String getFeeQuoted() {
-        return feeQuoted;
+    public String getfeequoted() {
+        return feequoted; // Get quoted fee
     }
 
-    public void setFeeQuoted(String feeQuoted) {
-        this.feeQuoted = feeQuoted;
+    public void setfeequoted(String feequoted) {
+        this.feequoted = feequoted; // Set quoted fee
     }
 
-    public String getOpportunityStatus() {
-        return opportunityStatus;
+    public String getopportunitystatus() {
+        return opportunitystatus; // Get opportunity status
     }
 
-    public void setOpportunityStatus(String opportunityStatus) {
-        this.opportunityStatus = opportunityStatus;
+    public void setopportunitystatus(String opportunitystatus) {
+        this.opportunitystatus = opportunitystatus; // Set opportunity status
     }
 
-    public String getOpportunityStage() {
-        return opportunityStage;
+    public String getopportunitystage() {
+        return opportunitystage; // Get opportunity stage
     }
 
-    public void setOpportunityStage(String opportunityStage) {
-        this.opportunityStage = opportunityStage;
+    public void setopportunitystage(String opportunitystage) {
+        this.opportunitystage = opportunitystage; // Set opportunity stage
     }
 
-    public String getVisitedStage() {
-        return visitedStage;
+    public String getvisitedstage() {
+        return visitedstage; // Get visited stage
     }
 
-    public void setVisitedStage(String visitedStage) {
-        this.visitedStage = visitedStage;
+    public void setvisitedstage(String visitedstage) {
+        this.visitedstage = visitedstage; // Set visited stage
     }
 
-    public String getLostOpportunityReason() {
-        return lostOpportunityReason;
+    public String getlostopportunityreason() {
+        return lostopportunityreason; // Get lost opportunity reason
     }
 
-    public void setLostOpportunityReason(String lostOpportunityReason) {
-        this.lostOpportunityReason = lostOpportunityReason;
+    public void setlostopportunityreason(String lostopportunityreason) {
+        this.lostopportunityreason = lostopportunityreason; // Set lost opportunity reason
     }
 
-    public String getNextFollowUp() {
-        return nextFollowUp;
+    public LocalDateTime getnextfollowup() {
+        return nextfollowup; // Get next follow-up date
     }
 
-    public void setNextFollowUp(String nextFollowUp) {
-        this.nextFollowUp = nextFollowUp;
+    public void setnextfollowup(LocalDateTime nextfollowup) {
+        this.nextfollowup = nextfollowup; // Set next follow-up date
     }
 
-    public String getLeadStatus() {
-        return leadStatus;
+    public String getleadstatus() {
+        return leadstatus; // Get lead status
     }
 
-    public void setLeadStatus(String leadStatus) {
-        this.leadStatus = leadStatus;
+    public void setleadstatus(String leadstatus) {
+        this.leadstatus = leadstatus; // Set lead status
     }
 
-    public String getLeadSource() {
-        return leadSource;
+    public String getleadsource() {
+        return leadsource; // Get lead source
     }
 
-    public void setLeadSource(String leadSource) {
-        this.leadSource = leadSource;
+    public void setleadsource(String leadsource) {
+        this.leadsource = leadsource; // Set lead source
     }
 
-    public String getCourse() {
-        return course;
+    public String getcourse() {
+        return course; // Get course
     }
 
-    public void setCourse(String course) {
-        this.course = course;
+    public void setcourse(String course) {
+        this.course = course; // Set course
     }
 
-    public String getDescription() {
-        return description;
+    public String getdescription() {
+        return description; // Get description
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setdescription(String description) {
+        this.description = description; // Set description
     }
 
-    public String getClassmode() {
-        return classmode;
+    public String getclassmode() {
+        return classmode; // Get class mode
     }
 
-    public void setClassmode(String classmode) {
-        this.classmode = classmode;
-    }
-
-    public String getStack() {
-        return stack;
-    }
-
-    public void setStack(String stack) {
-        this.stack = stack;
-    }
-
-    public String getbatchtiming() {
-        return batchtiming;
-    }
-
-    public void setbatchtiming(String batchtiming) {
-        this.batchtiming = batchtiming;
+    public void setclassmode(String classmode) {
+        this.classmode = classmode; // Set class mode
     }
 
     public String getdemoattendedstage() {
-        return demoattendedstage;
+        return demoattendedstage; // Get demo attended stage
     }
 
     public void setdemoattendedstage(String demoattendedstage) {
-        this.demoattendedstage = demoattendedstage;
+        this.demoattendedstage = demoattendedstage; // Set demo attended stage
+    }
+
+    public String getbatchtiming() {
+        return batchtiming; // Get batch timing
+    }
+
+    public void setbatchtiming(String batchtiming) {
+        this.batchtiming = batchtiming; // Set batch timing
+    }
+
+    public String getstack() {
+        return stack; // Get stack
+    }
+
+    public void setstack(String stack) {
+        this.stack = stack; // Set stack
     }
 }

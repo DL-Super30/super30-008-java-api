@@ -1,78 +1,57 @@
-package lead.com;
+package dto.com;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import jakarta.persistence.*;
+
 
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "lead")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class LeadEntity {
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
+public class LeadDTO {
+
     @JsonProperty("id")
     private Long id;
 
-    @Column(name = "name", nullable = false)
     @JsonProperty("name")
     private String name;
 
-    @Column(name = "cc", nullable = false)
     @JsonProperty("cc")
     private String cc;
 
-    @Column(name = "phone", nullable = false)
     @JsonProperty("phone")
     private String phone;
 
-    @Column(name = "email", unique = true, nullable = false)
     @JsonProperty("email")
     private String email;
 
-    @Column(name = "fee_quoted")
-    @JsonProperty("feeQuoted")
+    @JsonProperty("feequoted")
     private String feequoted;
 
-    @Column(name = "lead_status")
-    @JsonProperty("leadStatus")
+    @JsonProperty("leadstatus")
     private String leadstatus;
 
-    @Column(name = "lead_source")
-    @JsonProperty("leadSource")
+    @JsonProperty("leadsource")
     private String leadsource;
 
-    @Column(name = "stack")
     @JsonProperty("stack")
     private String stack;
 
-    @Column(name = "course")
     @JsonProperty("course")
     private String course;
 
-    @Column(name = "class_mode")
-    @JsonProperty("classMode")
+    @JsonProperty("classmode")
     private String classmode;
 
-    @Column(name = "next_follow_up")
-    @JsonProperty("nextFollowUp")
+    @JsonProperty("nextfollowup")
     private String nextfollowup;
 
-    @Column(name = "description")
     @JsonProperty("description")
     private String description;
 
-    @Column(name = "batchtiming")
-    @JsonProperty("batchTiming")
+    @JsonProperty("batchtiming")
     private String batchtiming;
 
-    @Column(name = "created_at")
     @JsonProperty("createdAt")
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt;
 
     // Getters and Setters
     public Long getId() {
@@ -194,5 +173,4 @@ public class LeadEntity {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-
 }

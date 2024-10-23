@@ -1,10 +1,12 @@
 package learners.com;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "learners")
@@ -12,132 +14,127 @@ public class Learner {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @NotBlank(message = "First name is required")
-    @Size(min = 2, message = "First name should have at least 2 characters")
+    @JsonProperty("first name")
     @Column(name = "firstname")
-    @JsonProperty("First Name")
     private String firstname;
 
-    @NotBlank(message = "Last name is required")
-    @Size(min = 2, message = "Last name should have at least 2 characters")
+    @JsonProperty("last name")
     @Column(name = "lastname")
-    @JsonProperty("Last Name")
     private String lastname;
 
+    @JsonProperty("id proof")
     @Column(name = "idproof")
-    @JsonProperty("Id Proof")
-    private String idproof; 
+    private String idproof;
 
-    @NotBlank(message = "Phone number is required")
+    @JsonProperty("phone")
     @Column(name = "phone")
-    @JsonProperty("Phone")
     private String phone;
 
+    @JsonProperty("date of birth")
     @Column(name = "dateofbirth")
-    @JsonProperty("Date of Birth")
     private String dateofbirth;
 
-    @NotBlank(message = "Email is required")
+    @JsonProperty("email")
     @Column(name = "email")
-    @JsonProperty("Email")
     private String email;
 
+    @JsonProperty("registered date")
     @Column(name = "registereddate")
-    @JsonProperty("Registered Date")
     private String registereddate;
 
+    @JsonProperty("location")
     @Column(name = "location")
-    @JsonProperty("Location")
     private String location;
 
+    @JsonProperty("batch ids")
     @Column(name = "batchids")
-    @JsonProperty("Batch ID's")
-    private String batchids; 
+    private String batchids;
 
+    @JsonProperty("alternate phone")
     @Column(name = "alternatephone")
-    @JsonProperty("Alternate Phone")
     private String alternatephone;
 
+    @JsonProperty("description")
     @Column(name = "description")
-    @JsonProperty("Description")
     private String description;
 
+    @JsonProperty("exchange rate")
     @Column(name = "exchangerate")
-    @JsonProperty("Exchange Rate")
     private String exchangerate;
 
+    @JsonProperty("source")
     @Column(name = "source")
-    @JsonProperty("Source")
     private String source;
 
+    @JsonProperty("attended demo")
     @Column(name = "attendeddemo")
-    @JsonProperty("Attended Demo")
     private String attendeddemo;
 
+    @JsonProperty("learner owner")
     @Column(name = "learnerowner")
-    @JsonProperty("Learner Owner")
-    private String learnerowner; 
+    private String learnerowner;
 
+    @JsonProperty("learner stage")
     @Column(name = "learnerstage")
-    @JsonProperty("Learner Stage")
     private String learnerstage;
 
+    @JsonProperty("currency")
     @Column(name = "currency")
-    @JsonProperty("Currency")
     private String currency;
 
+    @JsonProperty("lead created time")
     @Column(name = "leadcreatedtime")
-    @JsonProperty("Lead Created Time")
     private String leadcreatedtime;
 
+    @JsonProperty("counselling done by")
     @Column(name = "counsellingdoneby")
-    @JsonProperty("Counseling Done By")
     private String counsellingdoneby;
 
+    @JsonProperty("registered course")
     @Column(name = "registeredcourse")
-    @JsonProperty("Registered Course")
     private String registeredcourse;
 
+    @JsonProperty("preferable time")
     @Column(name = "preferabletime")
-    @JsonProperty("Preferable Time")
     private String preferabletime;
 
+    @JsonProperty("tech stack")
     @Column(name = "techstack")
-    @JsonProperty("Tech Stack")
     private String techstack;
 
+    @JsonProperty("batch timing")
     @Column(name = "batchtiming")
-    @JsonProperty("Batch Timing")
     private String batchtiming;
 
+    @JsonProperty("course comments")
     @Column(name = "coursecomments")
-    @JsonProperty("Course Comments")
     private String coursecomments;
 
+    @JsonProperty("mode of class")
     @Column(name = "modeofclass")
-    @JsonProperty("Mode Of Class")
     private String modeofclass;
 
+    @JsonProperty("slack access")
     @Column(name = "slackaccess")
-    @JsonProperty("Slack Access")
     private String slackaccess;
 
+    @JsonProperty("comment")
     @Column(name = "comment")
-    @JsonProperty("Comment")
     private String comment;
 
+    @JsonProperty("lms access")
     @Column(name = "lmsaccess")
-    @JsonProperty("LMS Access")
     private String lmsaccess;
 
     // Getters and Setters
-    public Long getId() {
+    public Long getid() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setid(Long id) {
         this.id = id;
     }
 
@@ -157,211 +154,211 @@ public class Learner {
         this.lastname = lastname;
     }
 
-    public String getIdproof() {
+    public String getidproof() {
         return idproof;
     }
 
-    public void setIdproof(String idproof) {
+    public void setidproof(String idproof) {
         this.idproof = idproof;
     }
 
-    public String getPhone() {
+    public String getphone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setphone(String phone) {
         this.phone = phone;
     }
 
-    public String getDateofbirth() {
+    public String getdateofbirth() {
         return dateofbirth;
     }
 
-    public void setDateofbirth(String dateofbirth) {
+    public void setdateofbirth(String dateofbirth) {
         this.dateofbirth = dateofbirth;
     }
 
-    public String getEmail() {
+    public String getemail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setemail(String email) {
         this.email = email;
     }
 
-    public String getRegistereddate() {
+    public String getregistereddate() {
         return registereddate;
     }
 
-    public void setRegistereddate(String registereddate) {
+    public void setregistereddate(String registereddate) {
         this.registereddate = registereddate;
     }
 
-    public String getLocation() {
+    public String getlocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setlocation(String location) {
         this.location = location;
     }
 
-    public String getBatchids() {
+    public String getbatchids() {
         return batchids;
     }
 
-    public void setBatchids(String batchids) {
+    public void setbatchids(String batchids) {
         this.batchids = batchids;
     }
 
-    public String getAlternatephone() {
+    public String getalternatephone() {
         return alternatephone;
     }
 
-    public void setAlternatephone(String alternatephone) {
+    public void setalternatephone(String alternatephone) {
         this.alternatephone = alternatephone;
     }
 
-    public String getDescription() {
+    public String getdescription() {
         return description;
     }
 
-    public void setDescription(String description) {
+    public void setdescription(String description) {
         this.description = description;
     }
 
-    public String getExchangerate() {
+    public String getexchangerate() {
         return exchangerate;
     }
 
-    public void setExchangerate(String exchangerate) {
+    public void setexchangerate(String exchangerate) {
         this.exchangerate = exchangerate;
     }
 
-    public String getSource() {
+    public String getsource() {
         return source;
     }
 
-    public void setSource(String source) {
+    public void setsource(String source) {
         this.source = source;
     }
 
-    public String getAttendeddemo() {
+    public String getattendeddemo() {
         return attendeddemo;
     }
 
-    public void setAttendeddemo(String attendeddemo) {
+    public void setattendeddemo(String attendeddemo) {
         this.attendeddemo = attendeddemo;
     }
 
-    public String getLearnerowner() {
+    public String getlearnerowner() {
         return learnerowner;
     }
 
-    public void setLearnerowner(String learnerowner) {
+    public void setlearnerowner(String learnerowner) {
         this.learnerowner = learnerowner;
     }
 
-    public String getLearnerstage() {
+    public String getlearnerstage() {
         return learnerstage;
     }
 
-    public void setLearnerstage(String learnerstage) {
+    public void setlearnerstage(String learnerstage) {
         this.learnerstage = learnerstage;
     }
 
-    public String getCurrency() {
+    public String getcurrency() {
         return currency;
     }
 
-    public void setCurrency(String currency) {
+    public void setcurrency(String currency) {
         this.currency = currency;
     }
 
-    public String getLeadcreatedtime() {
+    public String getleadcreatedtime() {
         return leadcreatedtime;
     }
 
-    public void setLeadcreatedtime(String leadcreatedtime) {
+    public void setleadcreatedtime(String leadcreatedtime) {
         this.leadcreatedtime = leadcreatedtime;
     }
 
-    public String getCounsellingdoneby() {
+    public String getcounsellingdoneby() {
         return counsellingdoneby;
     }
 
-    public void setCounsellingdoneby(String counsellingdoneby) {
+    public void setcounsellingdoneby(String counsellingdoneby) {
         this.counsellingdoneby = counsellingdoneby;
     }
 
-    public String getRegisteredcourse() {
+    public String getregisteredcourse() {
         return registeredcourse;
     }
 
-    public void setRegisteredcourse(String registeredcourse) {
+    public void setregisteredcourse(String registeredcourse) {
         this.registeredcourse = registeredcourse;
     }
 
-    public String getPreferabletime() {
+    public String getpreferabletime() {
         return preferabletime;
     }
 
-    public void setPreferabletime(String preferabletime) {
+    public void setpreferabletime(String preferabletime) {
         this.preferabletime = preferabletime;
     }
 
-    public String getTechstack() {
+    public String gettechstack() {
         return techstack;
     }
 
-    public void setTechstack(String techstack) {
+    public void settechstack(String techstack) {
         this.techstack = techstack;
     }
 
-    public String getBatchtiming() {
+    public String getbatchtiming() {
         return batchtiming;
     }
 
-    public void setBatchtiming(String batchtiming) {
+    public void setbatchtiming(String batchtiming) {
         this.batchtiming = batchtiming;
     }
 
-    public String getCoursecomments() {
+    public String getcoursecomments() {
         return coursecomments;
     }
 
-    public void setCoursecomments(String coursecomments) {
+    public void setcoursecomments(String coursecomments) {
         this.coursecomments = coursecomments;
     }
 
-    public String getModeofclass() {
+    public String getmodeofclass() {
         return modeofclass;
     }
 
-    public void setModeofclass(String modeofclass) {
+    public void setmodeofclass(String modeofclass) {
         this.modeofclass = modeofclass;
     }
 
-    public String getSlackaccess() {
+    public String getslackaccess() {
         return slackaccess;
     }
 
-    public void setSlackaccess(String slackaccess) {
+    public void setslackaccess(String slackaccess) {
         this.slackaccess = slackaccess;
     }
 
-    public String getComment() {
+    public String getcomment() {
         return comment;
     }
 
-    public void setComment(String comment) {
+    public void setcomment(String comment) {
         this.comment = comment;
     }
 
-    public String getLmsaccess() {
+    public String getlmsaccess() {
         return lmsaccess;
     }
 
-    public void setLmsaccess(String lmsaccess) {
+    public void setlmsaccess(String lmsaccess) {
         this.lmsaccess = lmsaccess;
     }
 }
